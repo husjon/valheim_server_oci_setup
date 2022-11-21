@@ -74,6 +74,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
     * Host Name (or IP address): `IP_ADDRESS`
     * Port: `22`
     * Saved Sessions: `Valheim Server`
+    * Close window on exit: `Never`
     * Click **Save**
 3. Next in the navigation tree to the left go to **Connection** > **SSH** > **Auth** > **Credentials**
     1. Under **Private key file for authentication** click **Browse...** and navigate to the Private key we saved using **puttygen**
@@ -101,6 +102,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
     ```bash
     bash ./setup_valheim_server.sh
     ```
+    On the first attempt,
 
     This will take a couple of minutes to complete.  
     The script installs all the necessary packages and set up the server with initial values.  
