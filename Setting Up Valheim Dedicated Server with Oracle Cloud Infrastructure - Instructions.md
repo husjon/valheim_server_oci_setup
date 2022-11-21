@@ -5,6 +5,12 @@ Original post can be found [here](https://www.reddit.com/r/valheim/comments/s1os
 
 # Instructions
 **Note**: For this guide a free account is required on the Oracle Cloud Infrastructure allowing us to spin up a server which is decently specced.  
+
+In this guide, we'll:
+  * Set up a Virtual Machine using the Oracle Cloud Infrastructure, including firewall rules
+  * Prepare and use SSH to connect to the Virtual Machine
+  * Update the Operating System and install the Valheim Dedicated Server software
+
 If you have the knowledge of setting up a server on an alternative cloud provider or your own hardware you may skip ahead to [Installing the Valheim Dedicated Server](#Installing-the-Valheim-Dedicated-Server)
 
 
