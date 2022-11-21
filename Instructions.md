@@ -7,12 +7,10 @@ Original post can be found [here](https://www.reddit.com/r/valheim/comments/s1os
 **Note**: For this guide a free account is required on the Oracle Cloud Infrastructure allowing us to spin up a server which is decently specced.  
 If you have the knowledge of setting up a server on an alternative cloud provider or your own hardware you may skip ahead to [Installing the Valheim Dedicated Server](#Installing-the-Valheim-Dedicated-Server)
 
-## OCI (Oracle Cloud Infrastructure)
-1. Head on over to https://cloud.oracle.com/ to sign up for a free account.  
-    After logging in you will be shown a **Get Started** page.  
-    All subsequent section starts from **Getting Started**.
 
-### Pre-requisite for Windows
+
+## Pre-requisite
+### Windows
 To connect to the server in the section [Connecting to the VM Instance](##-Connecting-to-the-VM-Instance) we need to do some preparation.
 1. First of all we need an SSH client, namely Putty
 2. Head on over to https://www.putty.org/ and click on the **Download PuTTY** link
@@ -25,6 +23,21 @@ To connect to the server in the section [Connecting to the VM Instance](##-Conne
     3. Press **Save public key** and save it to f.ex your Desktop
     3. Press **Save private key** and save it to f.ex your Desktop  
         It will ask about password protecting the key, this isn't necessary for this setup.
+
+### Mac / Linux
+Verify that we have a set of SSH key pairs
+1. Open a terminal
+2. Run the command `ls -l ~/.ssh/`.  
+    If you see the files `id_rsa` and `id_rsa.pub`, you can continue on with [OCI (Oracle Cloud Infrastructure)](##-OCI-(Oracle-Cloud-Infrastructure))
+3. If you did not see these files, you can run the command `ssh-keygen -N '' -f ~/.ssh/id_rsa`
+    Now you can re-run the command from step **2** and you should see both files.
+
+
+
+## OCI (Oracle Cloud Infrastructure)
+1. Head on over to https://cloud.oracle.com/ to sign up for a free account.  
+    After logging in you will be shown a **Get Started** page.  
+    All subsequent section starts from **Getting Started**.
 
 
 ### Creating the VM instance
@@ -43,7 +56,6 @@ To connect to the server in the section [Connecting to the VM Instance](##-Conne
     * If you're f.ex on Linux or Mac you can find your SSH keys under `~/.ssh/id_rsa.pub`
       In this case you can select **Upload public key files (.pub)** then navigate to `~/.ssh/id_rsa.pub`
     * For Windows, the SSH public key we copied in [Pre-requisite for Windows](###-Pre-requisite-for-Windows) can be pasted in by under **Paste public keys**
-
 5. Click **Create**.  
     This will take a couple of minutes while the instance is being provisioned / set up.  
     While we wait for it we'll go back to the dashboard and set up the networking.  
@@ -108,12 +120,15 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
     The script installs all the necessary packages and set up the server with initial values.  
     Once it finishes it let you know that we need to make a small edit to one file then start the server.
 
+
+
 ## Configuring the Valheim Server
 1. Open up the **server_credentials** file with `nano ~/server_credentials` (or text editor of choice)
 2. Adjust the **SERVER_NAME**, **WORLD_NAME** **PASSWORD**, **PUBLIC** as you see fit.  
     **Note**: The setup script populated the password field automatically with a random decently strong password.
 3. When done, Press `Ctrl+X`, then `y` and finally `Enter`.
     **Note**: Mac users might need to use the `Cmd` button instead of `Ctrl`
+
 
 
 ## Starting the Valheim Server
