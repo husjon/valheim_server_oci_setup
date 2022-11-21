@@ -10,6 +10,7 @@ In this guide, we'll:
   * Set up a Virtual Machine using the Oracle Cloud Infrastructure, including firewall rules
   * Prepare and use SSH to connect to the Virtual Machine
   * Update the Operating System and install the Valheim Dedicated Server software
+  * Finally we'll use Systemd to allow the server to run automatically.
 
 If you have the knowledge of setting up a server on an alternative cloud provider or your own hardware you may skip ahead to [Installing the Valheim Dedicated Server](#Installing-the-Valheim-Dedicated-Server)
 
