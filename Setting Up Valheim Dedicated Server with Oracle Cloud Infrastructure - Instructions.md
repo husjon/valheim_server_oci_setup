@@ -114,7 +114,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 ## Installing the Valheim Dedicated Server
 1. Run the following command:
     ```bash
-    wget https://gist.github.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/b9e7399c5cbf11fb7c8bdb5832c43f5fea934ee0/setup_valheim_server.sh
+    wget https://gist.github.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/fb51735d450c6b22a961c99ff1ab3b5cfbc66cb8/setup_valheim_server.sh
     ```
     This will download the installation script onto your server allowing it to set up everything which is needed.
 
