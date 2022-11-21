@@ -64,6 +64,7 @@ Verify that we have a set of SSH key pairs
       In this case you can select **Upload public key files (.pub)** then navigate to `~/.ssh/id_rsa.pub`
     * For Windows, the SSH public key we copied in [Pre-requisite for Windows](###-Pre-requisite-for-Windows) can be pasted in by under **Paste public keys**
 5. Click **Create**.  
+    If you get a warning about Out of Capacity, scroll up to the **Placement** section and try another Domain (AD 1, AD 2 or AD 3), and try again.
     This will take a couple of minutes while the instance is being provisioned / set up.  
     While we wait for it we'll go back to the dashboard and set up the networking.  
     Click on the **ORACLE Cloud** header or [click here](https://cloud.oracle.com/) to go back to the Getting started page.
