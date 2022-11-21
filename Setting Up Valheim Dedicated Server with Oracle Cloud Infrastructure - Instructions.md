@@ -123,6 +123,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
     bash ./setup_valheim_server.sh
     ```
     The first time this is run, the setup script will update the operating system and then reboot.
+    If you get notification about kernel upgrades, or restarting services you may just press `Enter`, allowing the default values be.
     After it's done you will be disconnected, wait about 15-20 seconds then reconnect to the server.
 
 3. Run the same command again
@@ -145,8 +146,9 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 
 
 ## Starting the Valheim Server
-To start the server, run the command `systemctl --user start valheim_server`
-From within the game, it might not show in the **Select Server** list, instead click the **Add server** button and type in the address `IP_ADDRESS:2456` (Using the IP address from[Configuring the Network and firewall rules](###-Configuring-the-Network-and-firewall-rules
-))
+To start the server, run the command `systemctl --user start valheim_server`  
+This will take a couple of minutes as the world is being generated.
+
+From within the game, it might not show in the **Select Server** list, instead click the **Add server** button and type in the address `IP_ADDRESS:2456` (Using the IP address from[Configuring the Network and firewall rules](###-Configuring-the-Network-and-firewall-rules))
 
 More information can be found in the attached Readme.md file and can be viewed with `cat ~/Readme.md`
