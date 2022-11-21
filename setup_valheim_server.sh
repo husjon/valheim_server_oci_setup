@@ -137,6 +137,7 @@ function main {
     fi
 
 
+
     # Update firewall
     info "Updating firewall rules"
     RULES=(
@@ -144,10 +145,17 @@ function main {
         "INPUT -p udp -m state --state NEW -m udp --dport 2457 -j ACCEPT"
         "INPUT -p udp -m state --state NEW -m udp --dport 2458 -j ACCEPT"
     )
+    FIREWALL_RULES_ADDED=false
     for RULE in "${RULES[@]}"; do
-        sudo iptables -C ${RULE} > /dev/null || \
-            sudo iptables -I ${RULE}
+        sudo iptables -C ${RULE} 2> /dev/null || \
+            sudo iptables -I ${RULE} && FIREWALL_RULES_ADDED=true
     done
+    if $FIREWALL_RULES_ADDED; then
+        sudo cp /etc/iptables/rules.v4{,.bak}
+        TMP_FILE=$(mktemp)
+        sudo iptables-save > "${TMP_FILE}"
+        sudo mv "${TMP_FILE}" /etc/iptables/rules.v4
+    fi
     success "Done"
 
 
