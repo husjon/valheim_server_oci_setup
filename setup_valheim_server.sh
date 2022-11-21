@@ -137,6 +137,20 @@ function main {
     fi
 
 
+    # Update firewall
+    info "Updating firewall rules"
+    RULES=(
+        "INPUT -p udp -m state --state NEW -m udp --dport 2456 -j ACCEPT"
+        "INPUT -p udp -m state --state NEW -m udp --dport 2457 -j ACCEPT"
+        "INPUT -p udp -m state --state NEW -m udp --dport 2458 -j ACCEPT"
+    )
+    for RULE in "${RULES[@]}"; do
+        sudo iptables -C ${RULE} > /dev/null || \
+            sudo iptables -I ${RULE}
+    done
+    success "Done"
+
+
 
     # Set up the Systemd Service
     info "Setting up Systemd Service"
