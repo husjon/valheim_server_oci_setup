@@ -39,12 +39,12 @@ function main {
     if [[ ! -f ~/.cache/valheim_server_setup ]]; then
         info "First time setup"
         info "Adding Architecture"
-        sudo apt update
+        sudo apt -y update
         sudo dpkg --add-architecture armhf
 
         info "Updating and upgrading the OS"
-        sudo apt update
-        sudo apt upgrade && touch ~/.cache/valheim_server_setup
+        sudo apt -y update
+        sudo apt -y upgrade && touch ~/.cache/valheim_server_setup
         success "Updating and upgrading the OS - Done"
         sudo reboot
         warn "Rebooting..."
@@ -54,7 +54,7 @@ function main {
 
     # Prepare box86 and box64
     info "Installing required packages"
-    sudo apt install \
+    sudo apt -y install \
         git \
         build-essential \
         cmake \
