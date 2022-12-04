@@ -33,6 +33,24 @@ function main {
         esac
     done
 
+    echo
+
+    while :; do
+        echo "Should this server use crossplay?"
+        echo -n "[yes/no]  "
+
+        read -r answer
+
+        case $answer in
+            YES|Yes|yes|y)
+                CROSSPLAY_SUPPORT=true
+                break;;
+            NO|No|no|n)
+                CROSSPLAY_SUPPORT=false
+                break;;
+        esac
+    done
+
 
 
     # Update and upgrade the system
@@ -164,6 +182,7 @@ function main {
     info "Setting up Systemd Service"
     mkdir -p ~/.config/systemd/user/
 
+    [[ $CROSSPLAY_SUPPORT == true ]] && CROSSPLAY="-crossplay"
     # Add servicefile
     cat <<-EOF > ~/.config/systemd/user/valheim_server.service
 		[Unit]
@@ -190,6 +209,7 @@ function main {
 		    -name "\${SERVER_NAME}" \\
 		    -world "\${WORLD_NAME}" \\
 		    -password "\${PASSWORD}" \\
+		    ${CROSSPLAY} \\
 		    -savedir "/home/ubuntu/valheim_data"
 
 		[Install]
@@ -214,6 +234,10 @@ function main {
 
 		# Stop server
 		systemctl --user stop valheim_server.service
+
+		# Enable / Disable crossplay
+		This can be accomplished by re-running the setup script.
+		It will ask you of you want crossplay enabled or disabled.
 
 		# Server logs
 		cat ~/valheim_server.log
