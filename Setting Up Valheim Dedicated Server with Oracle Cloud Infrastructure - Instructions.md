@@ -154,4 +154,5 @@ From within the game, it might not show in the **Select Server** list, instead c
 More information can be found in the attached Readme.md file and can be viewed with `cat ~/Readme.md`
 
 ## Crossplay
-By re-running the setup script you will be asked if crossplay should be enabled or disabled.
+By re-running the setup script you will be asked if crossplay should be enabled or disabled.  
+You will need to restart the server for this to take effect using `systemctl --user restart valheim_server`
