@@ -114,7 +114,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 ## Installing the Valheim Dedicated Server
 1. Run the following command:
     ```bash
-    wget https://gist.github.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/09c63b5b7f4391f2e919d6430efcbe1f08637fe3/setup_valheim_server.sh
+    wget https://gist.github.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/2980a96b6d6936f683469911b9a6a45a0e11b4fb/setup_valheim_server.sh
     ```
     This will download the installation script onto your server allowing it to set up everything which is needed.
 
@@ -152,3 +152,6 @@ This will take a couple of minutes as the world is being generated.
 From within the game, it might not show in the **Select Server** list, instead click the **Add server** button and type in the address `IP_ADDRESS:2456` (Using the IP address from[Configuring the Network and firewall rules](###-Configuring-the-Network-and-firewall-rules))
 
 More information can be found in the attached Readme.md file and can be viewed with `cat ~/Readme.md`
+
+## Crossplay
+By re-running the setup script you will be asked if crossplay should be enabled or disabled.
