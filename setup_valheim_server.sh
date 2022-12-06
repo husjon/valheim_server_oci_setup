@@ -250,11 +250,11 @@ function main {
 		systemctl --user stop valheim_server
 
 		cd ~/steamcmd
-		time ./steamcmd.sh \
-		            +@sSteamCmdForcePlatformType linux \
-		            +login anonymous \
-		            +force_install_dir /home/ubuntu/valheim_server \
-		            +app_update 896660 \
+		time ./steamcmd.sh \\
+		            +@sSteamCmdForcePlatformType linux \\
+		            +login anonymous \\
+		            +force_install_dir /home/ubuntu/valheim_server \\
+		            +app_update 896660 \\
 		            +quit
 
 		systemctl --user start valheim_server
