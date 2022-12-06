@@ -229,18 +229,40 @@ function main {
 		# Start server
 		systemctl --user start valheim_server.service
 
+
 		# Restart server
 		systemctl --user restart valheim_server.service
+
 
 		# Stop server
 		systemctl --user stop valheim_server.service
 
+
+		# Viewing logs server
+		## live logs
+		journalctl --user -f -u valheim_server.service
+
+		## full logs
+		journalctl --user -u valheim_server.service
+
+
+		# Updating the server
+		systemctl --user stop valheim_server
+
+		cd ~/steamcmd
+		time ./steamcmd.sh \
+		            +@sSteamCmdForcePlatformType linux \
+		            +login anonymous \
+		            +force_install_dir /home/ubuntu/valheim_server \
+		            +app_update 896660 \
+		            +quit
+
+		systemctl --user start valheim_server
+
+
 		# Enable / Disable crossplay
 		This can be accomplished by re-running the setup script.
 		It will ask you of you want crossplay enabled or disabled.
-
-		# Server logs
-		cat ~/valheim_server.log
 	EOF
 
 
