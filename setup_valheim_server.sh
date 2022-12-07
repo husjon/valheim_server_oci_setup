@@ -216,6 +216,9 @@ function main {
 		WantedBy=default.target
 	EOF
 
+    # Enable Lingering Systemd user sessions
+    loginctl enable-linger
+
     # Reload Systemd
     systemctl --user daemon-reload
 
