@@ -37,7 +37,7 @@ function main {
 
     while :; do
         echo "Should this server use crossplay?"
-        echo -n "[yes/no]  "
+        echo -n "[yes/no] (default: no)  "
 
         read -r answer
 
@@ -45,7 +45,7 @@ function main {
             YES|Yes|yes|y)
                 CROSSPLAY_SUPPORT=true
                 break;;
-            NO|No|no|n)
+            NO|No|no|n|*)
                 CROSSPLAY_SUPPORT=false
                 break;;
         esac
