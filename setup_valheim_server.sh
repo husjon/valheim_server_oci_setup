@@ -35,21 +35,25 @@ function main {
 
     echo
 
-    while :; do
-        echo "Should this server use crossplay?"
-        echo -n "[yes/no] (default: no)  "
+    if uname -p | grep "aarch64" > /dev/null; then
+        echo "[!] Crossplay currently not supported on ARM systems!"
+    else
+        while :; do
+            echo "Should this server use crossplay?"
+            echo -n "[yes/no] (default: no)  "
 
-        read -r answer
+            read -r answer
 
-        case $answer in
-            YES|Yes|yes|y)
-                CROSSPLAY_SUPPORT=true
-                break;;
-            NO|No|no|n|*)
-                CROSSPLAY_SUPPORT=false
-                break;;
-        esac
-    done
+            case $answer in
+                YES|Yes|yes|y)
+                    CROSSPLAY_SUPPORT=true
+                    break;;
+                NO|No|no|n|*)
+                    CROSSPLAY_SUPPORT=false
+                    break;;
+            esac
+        done
+    fi
 
 
 
