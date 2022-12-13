@@ -1,23 +1,23 @@
 #!/bin/bash
 
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+ORANGE=$(tput setaf 3)
+BOLD=$(tput bold)
+CLEAR=$(tput sgr0)
+
+function warn { echo -en "\n\n${BOLD}${ORANGE}[-] $* ${CLEAR}\n"; }
+function success { echo -en "${BOLD}${GREEN}[+] $* ${CLEAR}\n"; }
+function info { echo -en "\n\n${BOLD}[ ] $* ${CLEAR}\n"; }
+function error { echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
+function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
+
 
 function main {
     # Stop on error
     set -e
+
     cd
-
-    RED=$(tput setaf 1)
-    GREEN=$(tput setaf 2)
-    ORANGE=$(tput setaf 3)
-    BOLD=$(tput bold)
-    CLEAR=$(tput sgr0)
-
-    function warn { echo -en "\n\n${BOLD}${ORANGE}[-] $* ${CLEAR}\n"; }
-    function success { echo -en "${BOLD}${GREEN}[+] $* ${CLEAR}\n"; }
-    function info { echo -en "\n\n${BOLD}[ ] $* ${CLEAR}\n"; }
-    function error { echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
-    function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
-
 
     while :; do
         echo "This script will install the Valheim Dedicated server "
@@ -36,7 +36,7 @@ function main {
     echo
 
     if uname -p | grep "aarch64" > /dev/null; then
-        echo "[!] Crossplay currently not supported on ARM systems!"
+        error "Crossplay currently not supported on ARM systems!"
     else
         while :; do
             echo "Should this server use crossplay?"
