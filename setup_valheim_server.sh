@@ -130,8 +130,8 @@ function main {
         cd ~/steamcmd
         ./steamcmd.sh \
             +@sSteamCmdForcePlatformType linux \
-            +login anonymous \
             +force_install_dir /home/ubuntu/valheim_server \
+            +login anonymous \
             +app_update 896660 validate \
             +quit && \
                 success "Installing Valheim Dedicated Server - Done"
@@ -259,8 +259,8 @@ function main {
 		cd ~/steamcmd
 		time ./steamcmd.sh \\
 		            +@sSteamCmdForcePlatformType linux \\
-		            +login anonymous \\
 		            +force_install_dir /home/ubuntu/valheim_server \\
+		            +login anonymous \\
 		            +app_update 896660 \\
 		            +quit
 
