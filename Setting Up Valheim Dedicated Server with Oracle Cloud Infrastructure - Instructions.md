@@ -176,3 +176,8 @@ wget https://gist.github.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/setup_v
 This will overwrite the existing script.
 
 This feature was added **Thu, 15 Dec 2022 19:56:51 +0100**.
+
+
+
+## TODOs
+* Add ability to update the Valheim server prior to starting the server.
