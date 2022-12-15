@@ -13,6 +13,44 @@ function error { echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
 function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
 
 
+function perform_self_update {
+    SETUP_SCRIPT_URL="https://gist.github.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/setup_valheim_server.sh"
+
+    ETAG_CACHE="${HOME}/.cache/setup_valheim_server.etag"
+    SETUP_SCRIPT_PATH="$(realpath "$0")"
+
+    TEMP_SCRIPT_PATH="$(mktemp)"
+
+    if [[ ! -f "${ETAG_CACHE}" ]]; then
+        curl --silent --etag-save "${ETAG_CACHE}" -L "${SETUP_SCRIPT_URL}" -o "${TEMP_SCRIPT_PATH}"
+    else
+        info "Checking for setup script updates"
+
+        curl --silent --etag-compare "${ETAG_CACHE}" -L "${SETUP_SCRIPT_URL}" -o "${TEMP_SCRIPT_PATH}"
+
+        if [[ -s "${TEMP_SCRIPT_PATH}" ]]; then
+            if [[ "$(sha256sum "${SETUP_SCRIPT_PATH}")" != "$(sha256sum "${TEMP_SCRIPT_PATH}")" ]]; then
+                echo "Setup script available, updating..."
+
+                notify "Changes (< = removed  |  > = added):"
+                diff --minimal "${TEMP_SCRIPT_PATH}" "${SETUP_SCRIPT_PATH}"
+                echo
+                sleep 1
+                mv "${TEMP_SCRIPT_PATH}" "${SETUP_SCRIPT_PATH}"
+                success "Updated setup script."
+                notify "Please re-run the setup script..."
+                echo
+                exit 0
+            fi
+        fi
+
+        success "No update available"
+        echo
+        rm -f "${TEMP_SCRIPT_PATH}"
+    fi
+}
+
+
 function main {
     # Stop on error
     set -e
@@ -285,5 +323,7 @@ function main {
     echo
     echo "A readme with additional commands have also been placed in the home directory"
 }
+
+perform_self_update
 
 main | tee install_valheim_server.log
