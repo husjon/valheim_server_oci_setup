@@ -154,9 +154,25 @@ From within the game, it might not show in the **Select Server** list, instead c
 
 More information can be found in the attached Readme.md file and can be viewed with `cat ~/Readme.md`
 
+
+
 ## Crossplay
 By re-running the setup script you will be asked if crossplay should be enabled or disabled.  
 You will need to restart the server for this to take effect using `systemctl --user restart valheim_server`
 
 **Note**: Crossplay is currently not supported on servers running ARM architecture.  
 It might be in the future.
+
+
+
+## Self-updating
+The `setup_valheim_server.sh` now has a self-update feature which allow it to update itself and apply any bugfixes that should be necessary.
+
+After updating, it will show what have changed, update itself, then ask the user to restart the setup script.  
+It is not retroactively applied, hence the script will need to be downloaded again f.ex with:
+```bash
+wget https://gist.github.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/setup_valheim_server.sh -O ~/setup_valheim_server.sh
+```
+This will overwrite the existing script.
+
+This feature was added **Thu, 15 Dec 2022 19:56:51 +0100**.
