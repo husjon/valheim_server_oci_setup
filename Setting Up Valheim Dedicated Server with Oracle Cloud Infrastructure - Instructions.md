@@ -166,7 +166,7 @@ It might be in the future.
 
 
 ## Self-updating
-The `setup_valheim_server.sh` now has a self-update feature which allow it to update itself and apply any bugfixes that should be necessary.
+The `setup_valheim_server.sh` now has a self-update feature which allow it to update itself and apply any bugfixes that should be necessary whenever the script is run.
 
 After updating, it will show what have changed, update itself, then ask the user to restart the setup script.  
 It is not retroactively applied, hence the script will need to be downloaded again f.ex with:
