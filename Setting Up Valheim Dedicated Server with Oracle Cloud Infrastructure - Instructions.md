@@ -170,8 +170,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 # Installing the Valheim Dedicated Server
 1. Run the following command:
     ```bash
-    wget https://gist.githubusercontent.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/setup_valheim_server.sh
-
+    wget https://raw.githubusercontent.com/husjon/valheim_server_oci_setup/refs/heads/main/setup_valheim_server.sh
     ```
     This will download the installation script onto your server allowing it to set up everything which is needed.
 
@@ -257,7 +256,7 @@ The `setup_valheim_server.sh` now has a self-update feature which allow it to up
 After updating, it will show what have changed, update itself, then ask the user to restart the setup script.  
 It is not retroactively applied, hence the script will need to be downloaded again f.ex with:
 ```bash
-wget https://gist.github.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/setup_valheim_server.sh -O ~/setup_valheim_server.sh
+wget https://raw.githubusercontent.com/husjon/valheim_server_oci_setup/refs/heads/main/setup_valheim_server.sh -O ~/setup_valheim_server.sh
 ```
 This will overwrite the existing script.
 
