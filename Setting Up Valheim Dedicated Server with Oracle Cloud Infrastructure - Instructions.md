@@ -1,3 +1,25 @@
+# Table of Content
+
+- [Table of Content](#table-of-content)
+- [Credit](#credit)
+- [Instructions](#instructions)
+- [Pre-requisite](#pre-requisite)
+  - [Windows](#windows)
+  - [Mac / Linux](#mac--linux)
+- [OCI (Oracle Cloud Infrastructure)](#oci-oracle-cloud-infrastructure)
+  - [Creating the VM instance](#creating-the-vm-instance)
+  - [Configuring the Network and firewall rules](#configuring-the-network-and-firewall-rules)
+- [Connecting to the VM Instance](#connecting-to-the-vm-instance)
+  - [Windows](#windows-1)
+  - [Mac / Linux](#mac--linux-1)
+- [Installing the Valheim Dedicated Server](#installing-the-valheim-dedicated-server)
+- [Configuring the Valheim Server](#configuring-the-valheim-server)
+- [Starting the Valheim Server](#starting-the-valheim-server)
+- [Crossplay](#crossplay)
+- [Self-updating](#self-updating)
+- [TODOs](#todos)
+
+
 # Credit
 The original guide is from Reddit user That_Conversation_91 on [r/Valheim](https://www.reddit.com/r/valheim/).  
 Original post can be found [here](https://www.reddit.com/r/valheim/comments/s1os21/create_your_own_free_dedicated_server)
@@ -16,8 +38,8 @@ If you have the knowledge of setting up a server on an alternative cloud provide
 
 
 
-## Pre-requisite
-### Windows
+# Pre-requisite
+## Windows
 To connect to the server in the section [Connecting to the VM Instance](##-Connecting-to-the-VM-Instance) we need to do some preparation.
 1. First of all we need an SSH client, namely Putty
 2. Head on over to https://www.putty.org/ and click on the **Download PuTTY** link
@@ -31,7 +53,7 @@ To connect to the server in the section [Connecting to the VM Instance](##-Conne
     3. Press **Save private key** and save it to f.ex your Desktop  
         It will ask about password protecting the key, this isn't necessary for this setup.
 
-### Mac / Linux
+## Mac / Linux
 Verify that we have a set of SSH key pairs
 1. Open a terminal
 2. Run the command `ls -l ~/.ssh/`.  
@@ -41,13 +63,13 @@ Verify that we have a set of SSH key pairs
 
 
 
-## OCI (Oracle Cloud Infrastructure)
+# OCI (Oracle Cloud Infrastructure)
 1. Head on over to https://cloud.oracle.com/ to sign up for a free account.  
     After logging in you will be shown a **Get Started** page.  
     All subsequent section starts from **Getting Started**.
 
 
-### Creating the VM instance
+## Creating the VM instance
 1. From the Getting Started dashboard, scroll down a bit and click the **Create a VM instance**
 2. On the right hand side of **Image and shape** click **Edit**
     1. Click **Change image** and choose **Canonical Ubuntu** and confirm with the **Select image** button.
@@ -70,7 +92,7 @@ Verify that we have a set of SSH key pairs
     Click on the **ORACLE Cloud** header or [click here](https://cloud.oracle.com/) to go back to the Getting started page.
 
 
-### Configuring the Network and firewall rules
+## Configuring the Network and firewall rules
 1. At the top of the Getting started page, click on **Dashboard**
 2. Under **Resource explorer**, click **Virtual Cloud Networks**, then click the network (f.ex `vcn-20221120-1500`)
 3. On the left hand side, click on **Security Lists**, then the `Default Security List for NETWORKNAME`
@@ -86,9 +108,9 @@ Verify that we have a set of SSH key pairs
 7. On the right hand side you'll see **Instance access**, click **Copy** to the right of **Public IP address**, we need this in the next step.
 
 
-## Connecting to the VM Instance
+# Connecting to the VM Instance
 The IP Address we copied in the previous step will be referenced here as `IP_ADDRESS`
-### Windows
+## Windows
 1. Start **putty** which we downloaded in [Pre-requisite for Windows](###-Pre-requisite-for-Windows)
 2. We'll configure the following parameters:
     * Host Name (or IP address): `IP_ADDRESS`
@@ -103,7 +125,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 6. You should within a couple of seconds see a prompt along the lines of `ubuntu@instance-20221120-1503:~$ `
 7. You're now good to go to [Installing the Valheim Dedicated Server](#Installing-the-Valheim-Dedicated-Server)
 
-### Mac / Linux
+## Mac / Linux
 1. On Mac and Linux we already have an SSH client installed.
 2. Open up a terminal then execute `ssh ubuntu@IP_ADDRESS`
 3. You should within a couple of seconds see a prompt along the lines of `ubuntu@instance-20221120-1503:~$ `
@@ -111,7 +133,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 
 
 
-## Installing the Valheim Dedicated Server
+# Installing the Valheim Dedicated Server
 1. Run the following command:
     ```bash
     wget https://gist.githubusercontent.com/husjon/c5225997eb9798d38db9f2fca98891ef/raw/setup_valheim_server.sh
@@ -137,7 +159,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 
 
 
-## Configuring the Valheim Server
+# Configuring the Valheim Server
 1. Open up the **server_credentials** file with `nano ~/server_credentials` (or text editor of choice)
 2. Adjust the **SERVER_NAME**, **WORLD_NAME** **PASSWORD**, **PUBLIC** as you see fit.  
     **Note**: The setup script populated the password field automatically with a random decently strong password.
@@ -146,7 +168,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 
 
 
-## Starting the Valheim Server
+# Starting the Valheim Server
 To start the server, run the command `systemctl --user start valheim_server`  
 This will take a couple of minutes as the world is being generated.
 
@@ -156,7 +178,7 @@ More information can be found in the attached Readme.md file and can be viewed w
 
 
 
-## Crossplay
+# Crossplay
 By re-running the setup script you will be asked if crossplay should be enabled or disabled.  
 You will need to restart the server for this to take effect using `systemctl --user restart valheim_server`
 
@@ -165,7 +187,7 @@ It might be in the future.
 
 
 
-## Self-updating
+# Self-updating
 The `setup_valheim_server.sh` now has a self-update feature which allow it to update itself and apply any bugfixes that should be necessary whenever the script is run.
 
 After updating, it will show what have changed, update itself, then ask the user to restart the setup script.  
@@ -179,6 +201,6 @@ This feature was added **Thu, 15 Dec 2022 19:56:51 +0100**.
 
 
 
-## TODOs
+# TODOs
 * Add ability to update the Valheim server prior to starting the server.
 * Add information about adding pre-existing worlds
