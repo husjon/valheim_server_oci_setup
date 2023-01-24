@@ -17,6 +17,7 @@
 - [Starting the Valheim Server](#starting-the-valheim-server)
 - [Crossplay](#crossplay)
 - [Self-updating](#self-updating)
+- [Adding Pre-existing worlds](#adding-pre-existing-worlds)
 - [TODOs](#todos)
 
 
@@ -201,8 +202,27 @@ This feature was added **Thu, 15 Dec 2022 19:56:51 +0100**.
 
 
 
+# Adding Pre-existing worlds
+If you already have a world you've played on (f.ex hosted on your own computer) and you'd like to continue using it with this server,  
+the following steps can be used.
+1. Locate your save folder, navigate to this folder:  
+The files we are interested in are the `.db` and `.fwl` files.
+    * Windows: `%userprofile%/AppData/LocalLow/IronGate/Valheim/Worlds`
+    * Linux: `$HOME/.config/unity3d/IronGate/Valheim/worlds`
+2. Stop the Valheim Server with `systemctl --user stop valheim_serevr`
+3. With an SFTP client (f.ex FileZilla), upload the `.db` and `.fwl` file to the folder: `/home/${USER}/valheim_data`
+4. Edit the `~/server_credentials` and update the `WORLD_NAME` parameter to the name of your World files.  
+F.ex if you world file was `My_Valheim_World.db` and `My_Valheim_World.fwl`, set it to `WORLD_NAME="My_Valheim_World"`
+5. Start the Valheim Server with `systemctl --user start valheim_serevr`
+6. Within a few moments the server should be back up and running with the world you uploaded.
+
+
+
 # TODOs
 * Add ability to update the Valheim server prior to starting the server.
-* Add information about adding pre-existing worlds
+* ~~Add information about adding pre-existing worlds~~  
+**Tue, 24 Jan 2023 22:47:19 +0100**
+
 * ~~Add support for users other than `ubuntu`~~  
-**2023.01.24** - Made it so that the install script no longer is tied to the `ubuntu` user.
+**Tue, 24 Jan 2023 22:33:56 +0100**  
+Made it so that the install script no longer is tied to the `ubuntu` user.
