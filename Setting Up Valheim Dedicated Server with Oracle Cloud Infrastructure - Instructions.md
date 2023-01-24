@@ -170,7 +170,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 
 
 # Starting the Valheim Server
-To start the server, run the command `systemctl --user start valheim_server`  
+To start the server, run the command `valheim_server start`  
 This will take a couple of minutes as the world is being generated.
 
 From within the game, it might not show in the **Select Server** list, instead click the **Add server** button and type in the address `IP_ADDRESS:2456` (Using the IP address from[Configuring the Network and firewall rules](###-Configuring-the-Network-and-firewall-rules))
@@ -181,7 +181,7 @@ More information can be found in the attached Readme.md file and can be viewed w
 
 # Crossplay
 By re-running the setup script you will be asked if crossplay should be enabled or disabled.  
-You will need to restart the server for this to take effect using `systemctl --user restart valheim_server`
+You will need to restart the server for this to take effect using `valheim_server restart `
 
 **Note**: Crossplay is currently not supported on servers running ARM architecture.  
 It might be in the future.
@@ -209,17 +209,20 @@ the following steps can be used.
 The files we are interested in are the `.db` and `.fwl` files.
     * Windows: `%userprofile%/AppData/LocalLow/IronGate/Valheim/Worlds`
     * Linux: `$HOME/.config/unity3d/IronGate/Valheim/worlds`
-2. Stop the Valheim Server with `systemctl --user stop valheim_serevr`
+2. Stop the Valheim Server with `valheim_server stop`
 3. With an SFTP client (f.ex FileZilla), upload the `.db` and `.fwl` file to the folder: `/home/${USER}/valheim_data`
 4. Edit the `~/server_credentials` and update the `WORLD_NAME` parameter to the name of your World files.  
 F.ex if you world file was `My_Valheim_World.db` and `My_Valheim_World.fwl`, set it to `WORLD_NAME="My_Valheim_World"`
-5. Start the Valheim Server with `systemctl --user start valheim_serevr`
+5. Start the Valheim Server with `valheim_server start`
 6. Within a few moments the server should be back up and running with the world you uploaded.
 
 
 
 # TODOs
-* Add ability to update the Valheim server prior to starting the server.
+* Add ability to update the Valheim server prior to starting the server.  
+**Tue, 24 Jan 2023 23:01:18 +0100**  
+Now part of the `valheim_server` helper command.
+
 * ~~Add information about adding pre-existing worlds~~  
 **Tue, 24 Jan 2023 22:47:19 +0100**
 
