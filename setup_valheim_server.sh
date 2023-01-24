@@ -168,7 +168,7 @@ function main {
         cd ~/steamcmd
         ./steamcmd.sh \
             +@sSteamCmdForcePlatformType linux \
-            +force_install_dir /home/ubuntu/valheim_server \
+            +force_install_dir "/home/$USER/valheim_server" \
             +login anonymous \
             +app_update 896660 validate \
             +quit && \
@@ -237,13 +237,13 @@ function main {
 		Restart=always
 		RestartSec=5
 
-		WorkingDirectory=/home/ubuntu/valheim_server
-		EnvironmentFile=/home/ubuntu/server_credentials
+		WorkingDirectory=/home/${USER}/valheim_server
+		EnvironmentFile=/home/${USER}/server_credentials
 
 		Environment=SteamAppId=892970
 		Environment=LD_LIBRARY_PATH="./linux64:\$LD_LIBRARY_PATH"
 
-		ExecStart=/home/ubuntu/valheim_server/valheim_server.x86_64 \\
+		ExecStart=/home/${USER}/valheim_server/valheim_server.x86_64 \\
 		    -nographics \\
 		    -batchmode \\
 		    -port "\${PORT}" \\
@@ -252,7 +252,7 @@ function main {
 		    -world "\${WORLD_NAME}" \\
 		    -password "\${PASSWORD}" \\
 		    ${CROSSPLAY} \\
-		    -savedir "/home/ubuntu/valheim_data"
+		    -savedir "/home/${USER}/valheim_data"
 
 		[Install]
 		WantedBy=default.target
