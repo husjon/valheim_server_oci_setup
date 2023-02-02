@@ -96,6 +96,7 @@ function main {
 
 
     # Update and upgrade the system
+    mkdir -p ~/.cache
     if [[ ! -f ~/.cache/valheim_server_setup ]]; then
         info "First time setup"
         info "Adding Architecture"
