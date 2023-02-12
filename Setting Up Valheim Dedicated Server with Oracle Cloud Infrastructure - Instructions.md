@@ -16,6 +16,7 @@
 - [Configuring the Valheim Server](#configuring-the-valheim-server)
 - [Starting the Valheim Server](#starting-the-valheim-server)
 - [Crossplay (playing with console players)](#crossplay-playing-with-console-players)
+- [Modding](#modding)
 - [Self-updating](#self-updating)
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
 - [TODOs](#todos)
@@ -185,6 +186,18 @@ You will need to restart the server for this to take effect using `valheim_serve
 
 **Note**: Crossplay is unfortunately not yet supported on servers running ARM architecture.  
 It might be in the future.
+
+
+
+# Modding
+[BepInEx](https://github.com/BepInEx/BepInEx) currently do not support ARM, hence modding currently seem to not be possible.  
+If this changes in the future, this section will be updated to reflect that.
+
+PS: If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let me know.
+
+As for a guide to install mods, here is one.  
+https://www.youtube.com/watch?v=h2t9cSFidt0
+
 
 
 
