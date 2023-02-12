@@ -232,7 +232,7 @@ F.ex if you world file was `My_Valheim_World.db` and `My_Valheim_World.fwl`, set
 
 
 # TODOs
-* Add ability to update the Valheim server prior to starting the server.  
+* ~~Add ability to update the Valheim server prior to starting the server.~~  
 **Tue, 24 Jan 2023 23:01:18 +0100**  
 Now part of the `valheim_server` helper command.
 
