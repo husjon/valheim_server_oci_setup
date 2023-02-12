@@ -15,7 +15,7 @@
 - [Installing the Valheim Dedicated Server](#installing-the-valheim-dedicated-server)
 - [Configuring the Valheim Server](#configuring-the-valheim-server)
 - [Starting the Valheim Server](#starting-the-valheim-server)
-- [Crossplay](#crossplay)
+- [Crossplay (playing with console players)](#crossplay-playing-with-console-players)
 - [Self-updating](#self-updating)
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
 - [TODOs](#todos)
@@ -179,11 +179,11 @@ More information can be found in the attached Readme.md file and can be viewed w
 
 
 
-# Crossplay
+# Crossplay (playing with console players)
 By re-running the setup script you will be asked if crossplay should be enabled or disabled.  
 You will need to restart the server for this to take effect using `valheim_server restart `
 
-**Note**: Crossplay is currently not supported on servers running ARM architecture.  
+**Note**: Crossplay is unfortunately not yet supported on servers running ARM architecture.  
 It might be in the future.
 
 
