@@ -191,7 +191,8 @@ It might be in the future.
 
 # Modding
 [BepInEx](https://github.com/BepInEx/BepInEx) currently do not support ARM, hence modding currently seem to not be possible.  
-If this changes in the future, this section will be updated to reflect that.
+If this changes in the future, this section will be updated to reflect that.  
+An issue has been raised with BepInEx and can be found here [BepInEx/BepInEx#336](https://github.com/BepInEx/BepInEx/issues/336)
 
 PS: If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let me know.
 
