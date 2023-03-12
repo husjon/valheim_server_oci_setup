@@ -141,7 +141,15 @@ function main {
             info "Building Box${ARCH}"
             cd "$HOME/box${ARCH}/build"
             git fetch
-            git checkout $(git tag | tail -n 1)
+            if [[ $ARCH == 64 ]] && [[ -n $BOX64_VERSION ]]; then
+                TAG="${BOX64_VERSION}"
+            elif [[ $ARCH == 86 ]] && [[ -n $BOX86_VERSION ]]; then
+                TAG="${BOX86_VERSION}"
+            else
+                TAG="$(git tag | tail -n 1)"
+            fi
+
+            git checkout "${TAG}"
             cmake .. -DRPI4ARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
             make -j"$(nproc)" && success "Building Box${ARCH} - Done"
 
