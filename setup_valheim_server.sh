@@ -26,7 +26,7 @@ function perform_self_update {
     else
         info "Checking for setup script updates"
 
-        curl --silent --etag-compare "${ETAG_CACHE}" -L "${SETUP_SCRIPT_URL}" -o "${TEMP_SCRIPT_PATH}"
+        curl --silent --etag-save "${ETAG_CACHE}" --etag-compare "${ETAG_CACHE}" -L "${SETUP_SCRIPT_URL}" -o "${TEMP_SCRIPT_PATH}"
 
         if [[ -s "${TEMP_SCRIPT_PATH}" ]]; then
             if [[ "$(sha256sum "${SETUP_SCRIPT_PATH}")" != "$(sha256sum "${TEMP_SCRIPT_PATH}")" ]]; then
