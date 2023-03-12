@@ -140,6 +140,7 @@ function main {
 
             info "Building Box${ARCH}"
             cd "$HOME/box${ARCH}/build"
+            git fetch
             git checkout $(git tag | tail -n 1)
             cmake .. -DRPI4ARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
             make -j"$(nproc)" && success "Building Box${ARCH} - Done"
