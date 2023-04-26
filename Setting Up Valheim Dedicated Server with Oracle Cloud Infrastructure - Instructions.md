@@ -19,6 +19,7 @@
 - [Modding](#modding)
 - [Self-updating](#self-updating)
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
+- [Troubleshooting](#troubleshooting)
 - [TODOs](#todos)
 
 
@@ -229,6 +230,23 @@ The files we are interested in are the `.db` and `.fwl` files.
 F.ex if you world file was `My_Valheim_World.db` and `My_Valheim_World.fwl`, set it to `WORLD_NAME="My_Valheim_World"`
 5. Start the Valheim Server with `valheim_server start`
 6. Within a few moments the server should be back up and running with the world you uploaded.
+
+
+
+# Troubleshooting
+In case you should experience any issues and would need some assistance, the install logs and server logs are helpful to troubleshoot the issue.
+
+To help with this the following steps should be followed:
+1. Create a log output of the running server using the following command:  
+`journalctl --no-pager --since=-1d --user -u valheim_server > ~/valheim_server.systemd.log`  
+This will take a snapshot of the logs from the Valheim Server from the last 24 hours.  
+In case the Valheim server was never started, this can be omitted.
+2. Download the `install_valheim_server.log` and `valheim_server.systemd.log` file located under `/home/ubuntu` using f.ex [FileZilla](https://filezilla-project.org/download.php?type=client).
+3. Go to https://gist.github.com/, click **Add File** for each file, then **Create Public / Secret Gist**  
+This creates a gist (similar to this guide) which we can go through to troubleshoot.
+4. Copy the URL to the gist and create a comment down below describing the issue and adding the link to the gist.
+
+I might be delayed due to work / timezones etc, but hoping to get you going as quickly as possible.
 
 
 
