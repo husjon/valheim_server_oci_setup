@@ -20,6 +20,9 @@
 - [Self-updating](#self-updating)
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
 - [Troubleshooting](#troubleshooting)
+- [Rolling back to the previous stable version version of Valheim](#rolling-back-to-the-previous-stable-version-version-of-valheim)
+  - [Switcing to the Beta Branch](#switcing-to-the-beta-branch)
+  - [Reverting back to the public version](#reverting-back-to-the-public-version)
 - [Oracle and Reclamation of Idle Compute Instances](#oracle-and-reclamation-of-idle-compute-instances)
 - [TODOs](#todos)
 
@@ -248,6 +251,43 @@ This creates a gist (similar to this guide) which we can go through to troublesh
 4. Copy the URL to the gist and create a comment down below describing the issue and adding the link to the gist.
 
 I might be delayed due to work / timezones etc, but hoping to get you going as quickly as possible.
+
+
+
+# Rolling back to the previous stable version version of Valheim
+aka using the Beta branch `default_old` which as of writing is currently at `0.214.300`.  
+This could be useful in case the public version breaks something.
+
+## Switcing to the Beta Branch
+1. Run SteamCMD to change to the `default_old` branch
+```bash
+cd ~/steamcmd
+
+./steamcmd.sh \
+    +@sSteamCmdForcePlatformType linux \
+    +force_install_dir "/home/$USER/valheim_server" \
+    +login anonymous \
+    +app_update 896660 -beta default_old validate \
+    +quit
+```
+3. In Steam, right-click the game, open Properties, go to Betas and select `default_old` from the dropdown and wait for the game to update (this might take a few minutes).
+4. Start the game and connect to your server as normal.
+
+
+## Reverting back to the public version
+1. Run SteamCMD to change to the `public` branch
+```bash
+cd ~/steamcmd
+
+./steamcmd.sh \
+    +@sSteamCmdForcePlatformType linux \
+    +force_install_dir "/home/$USER/valheim_server" \
+    +login anonymous \
+    +app_update 896660 -beta public validate \
+    +quit
+```
+3. In Steam, right-click the game, open Properties, go to Betas and select `None` from the dropdown and wait for the game to update (this might take a few minutes).
+4. Start the game and connect to your server as normal.
 
 
 
