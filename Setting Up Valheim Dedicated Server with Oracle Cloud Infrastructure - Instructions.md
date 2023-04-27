@@ -20,6 +20,7 @@
 - [Self-updating](#self-updating)
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
 - [Troubleshooting](#troubleshooting)
+- [Oracle and Reclamation of Idle Compute Instances](#oracle-and-reclamation-of-idle-compute-instances)
 - [TODOs](#todos)
 
 
@@ -247,6 +248,19 @@ This creates a gist (similar to this guide) which we can go through to troublesh
 4. Copy the URL to the gist and create a comment down below describing the issue and adding the link to the gist.
 
 I might be delayed due to work / timezones etc, but hoping to get you going as quickly as possible.
+
+
+
+# Oracle and Reclamation of Idle Compute Instances
+Oracle have a policy on their Always Free instances whichs allows them to reclaim instances that are idle or using less than a certain percentile (See: [Always_Free_Resources](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm#compute__idleinstances)).
+
+For the most part using the server should not trigger this.
+
+If the server should be flagged for reclaimation, you'll receive an email saying that it has been flagged for being idle for the last 7 days.  
+Next it will say that if it continues for another 7 days, the server will be stopped.  
+This gives us ample time to either back up the data or continue playing.
+
+The only thing needed to do is to log onto your Oracle Cloid Infrastructure, go to your Instances and click the Restart button, this will pause the reclaimation.
 
 
 
