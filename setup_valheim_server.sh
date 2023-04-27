@@ -21,32 +21,28 @@ function perform_self_update {
 
     TEMP_SCRIPT_PATH="$(mktemp)"
 
-    if [[ ! -f "${ETAG_CACHE}" ]]; then
-        curl --silent --etag-save "${ETAG_CACHE}" -L "${SETUP_SCRIPT_URL}" -o "${TEMP_SCRIPT_PATH}"
-    else
-        info "Checking for setup script updates"
+    info "Checking for setup script updates"
 
-        curl --silent --etag-save "${ETAG_CACHE}" --etag-compare "${ETAG_CACHE}" -L "${SETUP_SCRIPT_URL}" -o "${TEMP_SCRIPT_PATH}"
+    curl --silent --etag-save "${ETAG_CACHE}" --etag-compare "${ETAG_CACHE}" -L "${SETUP_SCRIPT_URL}" -o "${TEMP_SCRIPT_PATH}"
 
-        if [[ -s "${TEMP_SCRIPT_PATH}" ]]; then
-            if [[ "$(sha256sum "${SETUP_SCRIPT_PATH}")" != "$(sha256sum "${TEMP_SCRIPT_PATH}")" ]]; then
-                echo "Setup script available, updating..."
+    if [[ -s "${TEMP_SCRIPT_PATH}" ]]; then
+        if [[ "$(sha256sum "${SETUP_SCRIPT_PATH}")" != "$(sha256sum "${TEMP_SCRIPT_PATH}")" ]]; then
+            echo "Setup script available, updating..."
 
-                notify "Changes (< = removed  |  > = added):"
-                diff --minimal "${TEMP_SCRIPT_PATH}" "${SETUP_SCRIPT_PATH}"
-                echo
-                sleep 1
-                mv "${TEMP_SCRIPT_PATH}" "${SETUP_SCRIPT_PATH}"
-                success "Updated setup script."
-                notify "Please re-run the setup script..."
-                echo
-                exit 0
-            fi
+            notify "Changes (< = removed  |  > = added):"
+            diff --minimal "${SETUP_SCRIPT_PATH}" "${TEMP_SCRIPT_PATH}"
+            echo
+            sleep 1
+            mv "${TEMP_SCRIPT_PATH}" "${SETUP_SCRIPT_PATH}"
+            success "Updated setup script."
+            notify "Please re-run the setup script..."
+            echo
+            exit 0
+        else
+            success "No update available"
+            echo
+            rm -f "${TEMP_SCRIPT_PATH}"
         fi
-
-        success "No update available"
-        echo
-        rm -f "${TEMP_SCRIPT_PATH}"
     fi
 }
 
