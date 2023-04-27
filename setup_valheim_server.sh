@@ -38,12 +38,12 @@ function perform_self_update {
             notify "Please re-run the setup script..."
             echo
             exit 0
-        else
-            success "No update available"
-            echo
-            rm -f "${TEMP_SCRIPT_PATH}"
         fi
     fi
+
+    success "No update available"
+    echo
+    rm -f "${TEMP_SCRIPT_PATH}"
 }
 
 
