@@ -30,7 +30,7 @@ function perform_self_update {
             echo "Setup script available, updating..."
 
             notify "Changes (< = removed  |  > = added):"
-            diff --minimal "${SETUP_SCRIPT_PATH}" "${TEMP_SCRIPT_PATH}"
+            diff --color --minimal "${TEMP_SCRIPT_PATH}" "${SETUP_SCRIPT_PATH}"
             echo
             sleep 1
             mv "${TEMP_SCRIPT_PATH}" "${SETUP_SCRIPT_PATH}"
