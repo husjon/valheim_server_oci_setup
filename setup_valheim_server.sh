@@ -165,6 +165,9 @@ function main {
             curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
         ./steamcmd.sh +quit && success "Fetching steamcmd - Done"
     fi
+    # Add steamcmd steamclient.so symlink
+    info "Adding steamclient.so symlink"
+    mkdir -p ~/.steam/sdk64 && ln -frs ~/steamcmd/linux64/steamclient.so ~/.steam/sdk64/
 
 
 
