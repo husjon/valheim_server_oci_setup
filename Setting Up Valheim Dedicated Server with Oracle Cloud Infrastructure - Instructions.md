@@ -79,7 +79,8 @@ Verify that we have a set of SSH key pairs
 ## Creating the VM instance
 1. From the Getting Started dashboard, scroll down a bit and click the **Create a VM instance**
 2. On the right hand side of **Image and shape** click **Edit**
-    1. Click **Change image** and choose **Canonical Ubuntu** and confirm with the **Select image** button.
+    1. Click **Change image** and choose a **Canonical Ubuntu Minimal aarch64** and confirm with the **Select image** button.  
+    **Note:** make sure you select **aarch64** which is aimed at ARM server
     2. Click **Change shape** and set the following:
         * Instance type: `Virtual machine`
         * Shape series: `Ampere`
