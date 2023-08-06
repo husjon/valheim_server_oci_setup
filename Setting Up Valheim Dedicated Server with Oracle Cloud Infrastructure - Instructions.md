@@ -187,12 +187,16 @@ More information can be found in the attached Readme.md file and can be viewed w
 
 
 # Crossplay (playing with console players)
+**Note**: Crossplay on ARM architecture is currently experimental (thanks to **@bitdo1**).  
+
 During setup you will be asked if crossplay should be enabled or disabled.  
 You will need to restart the server for this to take effect using `valheim_server restart `  
 
 If you'd like to enable / disable this after the first setup, you can change it by rerunning the setup script.
 
-**Note**: Crossplay on ARM architecture is currently experimental (thanks to **@bitdo1**).  
+After crossplay has been enabled, the join procedure is the same as normal using `IP:port`, however you can now also join by using a 6 digit code which can be found in the logs after the server has started (using the `valheim_server logs-live` command).  
+Example log message:  
+`Session "My Valheim server" with join code 295265 and IP 12.34.56.78:2456 is active with 0 player(s)`
 
 
 
