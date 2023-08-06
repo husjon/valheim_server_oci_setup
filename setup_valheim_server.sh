@@ -66,28 +66,25 @@ function main {
                 echo Aborting; exit;;
         esac
     done
-
     echo
 
-    if uname -p | grep "aarch64" > /dev/null; then
-        error "Crossplay currently not supported on ARM systems!"
-    else
-        while :; do
-            echo "Should this server use crossplay?"
-            echo -n "[yes/no] (default: no)  "
 
-            read -r answer
+    while :; do
+        echo "Should this server use crossplay?"
+        echo "Note: this is currenly highly experimental"
+        echo -n "[yes/no] (default: no)  "
 
-            case $answer in
-                YES|Yes|yes|y)
-                    CROSSPLAY_SUPPORT=true
-                    break;;
-                NO|No|no|n|*)
-                    CROSSPLAY_SUPPORT=false
-                    break;;
-            esac
-        done
-    fi
+        read -r answer
+
+        case $answer in
+            YES|Yes|yes|y)
+                CROSSPLAY_SUPPORT=true
+                break;;
+            NO|No|no|n|*)
+                CROSSPLAY_SUPPORT=false
+                break;;
+        esac
+    done
 
 
 
@@ -182,6 +179,23 @@ function main {
             +app_update 896660 validate \
             +quit && \
                 success "Installing Valheim Dedicated Server - Done"
+    fi
+
+
+
+    # Add x86_64 version of libpulse-mainloop-glib.so.0
+    if [[ $CROSSPLAY_SUPPORT == true ]]; then
+        if [[ ! -f ~/valheim_server/linux64/libpulse-mainloop-glib.so.0 ]]; then
+            info "Installing libpulse-mainloop-glib.so.0:x86_64"
+            pushd "$(mktemp -d)"
+            wget http://mirrors.kernel.org/ubuntu/pool/main/p/pulseaudio/libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb
+            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb && \
+                cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
+            success "Installing libpulse-mainloop-glib.so.0:x86_64 - Done"
+            popd
+        fi
+    else
+        rm -f "/home/$USER/valheim_server/linux64/libpulse-mainloop-glib.so.0"
     fi
 
 

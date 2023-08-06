@@ -187,11 +187,12 @@ More information can be found in the attached Readme.md file and can be viewed w
 
 
 # Crossplay (playing with console players)
-By re-running the setup script you will be asked if crossplay should be enabled or disabled.  
-You will need to restart the server for this to take effect using `valheim_server restart `
+During setup you will be asked if crossplay should be enabled or disabled.  
+You will need to restart the server for this to take effect using `valheim_server restart `  
 
-**Note**: Crossplay is unfortunately not yet supported on servers running ARM architecture.  
-It might be in the future.
+If you'd like to enable / disable this after the first setup, you can change it by rerunning the setup script.
+
+**Note**: Crossplay on ARM architecture is currently experimental (thanks to **@bitdo1**).  
 
 
 
