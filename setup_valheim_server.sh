@@ -109,13 +109,14 @@ function main {
     # Prepare box86 and box64
     info "Installing required packages"
     sudo apt -y install \
-        git \
         build-essential \
         cmake \
         gcc-arm-linux-gnueabihf \
+        git \
         libc6:armhf \
         libncurses5:armhf \
-        libstdc++6:armhf && \
+        libstdc++6:armhf \
+        libpulse0 && \
         success "Installing required packages - Done"
 
 
@@ -189,7 +190,7 @@ function main {
             info "Installing libpulse-mainloop-glib.so.0:x86_64"
             pushd "$(mktemp -d)"
             wget http://mirrors.kernel.org/ubuntu/pool/main/p/pulseaudio/libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb
-            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb && \
+            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./ && \
                 cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
             success "Installing libpulse-mainloop-glib.so.0:x86_64 - Done"
             popd
