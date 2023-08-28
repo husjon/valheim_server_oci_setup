@@ -172,7 +172,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 1. Open up the **server_credentials** file with `nano ~/server_credentials` (or text editor of choice)
 2. Adjust the **SERVER_NAME**, **WORLD_NAME** **PASSWORD**, **PUBLIC** as you see fit.  
     **Note**: The setup script populated the password field automatically with a random decently strong password.
-3. When done, Press `Ctrl+X`, then `y` and finally `Enter`.
+3. When done, Press `Ctrl+X`, then `y` and finally `Enter`.  
     **Note**: Mac users might need to use the `Cmd` button instead of `Ctrl`
 
 
