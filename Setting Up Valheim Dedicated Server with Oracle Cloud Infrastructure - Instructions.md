@@ -15,6 +15,7 @@
 - [Installing the Valheim Dedicated Server](#installing-the-valheim-dedicated-server)
 - [Configuring the Valheim Server](#configuring-the-valheim-server)
 - [Starting the Valheim Server](#starting-the-valheim-server)
+- [Updating the Valheim Server](#updating-the-valheim-server)
 - [Crossplay (playing with console players)](#crossplay-playing-with-console-players)
 - [Modding](#modding)
 - [Installer Self-update](#installer-self-update)
@@ -183,6 +184,14 @@ This will take a couple of minutes as the world is being generated.
 From within the game, it might not show in the **Select Server** list, instead click the **Add server** button and type in the address `IP_ADDRESS:2456` (Using the IP address from[Configuring the Network and firewall rules](###-Configuring-the-Network-and-firewall-rules))
 
 More information can be found in the attached Readme.md file and can be viewed with `cat ~/Readme.md`
+
+
+
+# Updating the Valheim Server
+Whenever the Valheim client updates, the server also needs to be updated.  
+To do this, log onto the VM then run the command `valheim_server update`  
+This will stop the running server and update the server files.  
+Once done, you must start the server using `valheim_server update`
 
 
 
