@@ -17,7 +17,7 @@
 - [Starting the Valheim Server](#starting-the-valheim-server)
 - [Crossplay (playing with console players)](#crossplay-playing-with-console-players)
 - [Modding](#modding)
-- [Self-updating](#self-updating)
+- [Installer Self-update](#installer-self-update)
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
 - [Troubleshooting](#troubleshooting)
 - [Rolling back to the previous stable version version of Valheim](#rolling-back-to-the-previous-stable-version-version-of-valheim)
@@ -213,7 +213,7 @@ https://www.youtube.com/watch?v=h2t9cSFidt0
 
 
 
-# Self-updating
+# Installer Self-update
 The `setup_valheim_server.sh` now has a self-update feature which allow it to update itself and apply any bugfixes that should be necessary whenever the script is run.
 
 After updating, it will show what have changed, update itself, then ask the user to restart the setup script.  
