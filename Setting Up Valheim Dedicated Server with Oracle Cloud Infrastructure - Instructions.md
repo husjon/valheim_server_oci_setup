@@ -130,7 +130,7 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 3. Next in the navigation tree to the left go to **Connection** > **SSH** > **Auth** > **Credentials**
     1. Under **Private key file for authentication** click **Browse...** and navigate to the Private key we saved using **puttygen**
 4. Go back up in the navigation tree to **Session** and click **Save**
-5. Then click *Open**
+5. Then click *Open*
 6. You should within a couple of seconds see a prompt along the lines of `ubuntu@instance-20221120-1503:~$ `
 7. You're now good to go to [Installing the Valheim Dedicated Server](#Installing-the-Valheim-Dedicated-Server)
 
