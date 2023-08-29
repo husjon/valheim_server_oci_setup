@@ -16,7 +16,7 @@
 - [Configuring the Valheim Server](#configuring-the-valheim-server)
 - [Starting the Valheim Server](#starting-the-valheim-server)
 - [Updating the Valheim Server](#updating-the-valheim-server)
-- [Crossplay (playing with console players)](#crossplay-playing-with-console-players)
+- [Crossplay (Console / Game Pass)](#crossplay-console--game-pass)
 - [Modding](#modding)
 - [Installer Self-update](#installer-self-update)
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
@@ -162,8 +162,10 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
     ```bash
     bash ./setup_valheim_server.sh
     ```
-    This will take a couple of minutes to complete.  
-    The script installs all the necessary packages and set up the server with initial values.  
+    **Note:** If you're playing on Console or Xbox Game Pass / Microsoft Game Pass, please enable Crossplay.  
+    Also, read the [Crossplay](#crossplay-console--game-pass) section.
+
+    The installation will take a couple of minutes to complete as the script installs all the necessary packages and set up the server with initial values.  
     Once it finishes it let you know that we need to make a small edit to one file then start the server.
 
 
@@ -195,17 +197,19 @@ Once done, you must start the server using `valheim_server update`
 
 
 
-# Crossplay (playing with console players)
+# Crossplay (Console / Game Pass)
 **Note**: Crossplay on ARM architecture is currently experimental (thanks to **@bitdo1**).  
 
 During setup you will be asked if crossplay should be enabled or disabled.  
-You will need to restart the server for this to take effect using `valheim_server restart `  
 
 If you'd like to enable / disable this after the first setup, you can change it by rerunning the setup script.
+You will need to restart the server for this to take effect using `valheim_server restart `  
 
 After crossplay has been enabled, the join procedure is the same as normal using `IP:port`, however you can now also join by using a 6 digit code which can be found in the logs after the server has started (using the `valheim_server logs-live` command).  
 Example log message:  
 `Session "My Valheim server" with join code 295265 and IP 12.34.56.78:2456 is active with 0 player(s)`
+
+**Note:**  Do keep in mind that the join code will change every time the server is restarted!
 
 
 
