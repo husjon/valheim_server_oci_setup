@@ -261,7 +261,7 @@ To help with this the following steps should be followed:
 This will take a snapshot of the logs from the Valheim Server from the last 24 hours.  
 In case the Valheim server was never started, this can be omitted.
 2. Download the `install_valheim_server.log` and `valheim_server.systemd.log` file located under `/home/ubuntu` using f.ex [FileZilla](https://filezilla-project.org/download.php?type=client).  
-  Use port 22 for SFTP/SSH.
+  **Note:** Use port 22 for SFTP/SSH.
 3. Go to https://gist.github.com/, click **Add File** for each file, then **Create Public / Secret Gist**  
 This creates a gist (similar to this guide) which we can go through to troubleshoot.
 4. Copy the URL to the gist and create a comment down below describing the issue and adding the link to the gist.
