@@ -28,6 +28,13 @@
 - [TODOs](#todos)
 
 
+# :warning: Disclaimer :warning: 
+This script / procedure for setting up a Valheim server on ARM is currently broken as of 7th of November 2023.
+(https://www.valheimgame.com/news/patch-0-217-28/)
+
+This unfortunately also includes the rollback procedure.
+Check comments for any updates regarding this issue.
+
 # Credit
 The original guide is from Reddit user That_Conversation_91 on [r/Valheim](https://www.reddit.com/r/valheim/).  
 Original post can be found [here](https://www.reddit.com/r/valheim/comments/s1os21/create_your_own_free_dedicated_server)
