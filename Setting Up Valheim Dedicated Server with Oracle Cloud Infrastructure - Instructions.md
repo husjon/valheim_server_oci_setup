@@ -30,8 +30,8 @@
 
 # :warning: Disclaimer :warning:
 
-This install script has now been updated with a configuration for box64 which has been tested to work for a few weeks and by different people using this guide.
-If you have made any changes to the `~/.box64rc` configuration file for the `[valheim_server.x86_64]` section, please remove it and run the setup script.
+This install script has now been updated with a configuration for box64 which has been tested to work for a few weeks and by different people using this guide.  
+If you have made any changes to the `~/.box64rc` configuration file for the `[valheim_server.x86_64]` section, please remove it and run the setup script.  
 If you should experience any issues, please leave a comment.
 
 ~~This script / procedure for setting up a Valheim server on ARM is currently broken as of 7th of November 2023.
