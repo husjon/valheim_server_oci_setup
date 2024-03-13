@@ -151,6 +151,15 @@ function main {
             sudo make install && success "Installing Box${ARCH} - Done"
         done
         sudo systemctl restart systemd-binfmt.service
+
+        if ! grep -F '[valheim_server.x86_64]  #box64 v0.2.6' ~/.box64rc; then
+            info "Adding box64 configuration"
+            cat <<-EOF | tee -a ~/.box64rc
+			[valheim_server.x86_64]
+			BOX64_DYNAREC_BLEEDING_EDGE=0
+			BOX64_DYNAREC_STRONGMEM=3
+			EOF
+        fi
     fi
 
 
@@ -413,7 +422,7 @@ perform_self_update
 
 
 # Pinned versions for Box 64 / 86
-# BOX64_VERSION="0cef7f27ea70"
+BOX64_VERSION="v0.2.6"
 # BOX86_VERSION="v0.3.0"
 
 main | tee install_valheim_server.log
