@@ -1,6 +1,7 @@
 # Table of Content
 
 - [Table of Content](#table-of-content)
+- [:warning: Disclaimer :warning:](#warning-disclaimer-warning)
 - [Credit](#credit)
 - [Instructions](#instructions)
 - [Pre-requisite](#pre-requisite)
@@ -21,8 +22,9 @@
 - [Installer Self-update](#installer-self-update)
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
 - [Troubleshooting](#troubleshooting)
-- [Rolling back to the previous stable version version of Valheim](#rolling-back-to-the-previous-stable-version-version-of-valheim)
-  - [Switcing to the Beta Branch](#switcing-to-the-beta-branch)
+- [Changing versions](#changing-versions)
+  - [Switcing to the Previous Stable Version](#switcing-to-the-previous-stable-version)
+  - [Switching to the Public Beta Branch](#switching-to-the-public-beta-branch)
   - [Reverting back to the public version](#reverting-back-to-the-public-version)
 - [Oracle and Reclamation of Idle Compute Instances](#oracle-and-reclamation-of-idle-compute-instances)
 - [TODOs](#todos)
@@ -286,11 +288,11 @@ I might be delayed due to work / timezones etc, but hoping to get you going as q
 
 
 
-# Rolling back to the previous stable version version of Valheim
-aka using the Beta branch `default_old` which as of writing is currently at `0.214.300`.  
+# Changing versions
 This could be useful in case the public version breaks something.
+Make sure you create a backup of the server before switching versions.
 
-## Switcing to the Beta Branch
+## Switcing to the Previous Stable Version
 1. Run SteamCMD to change to the `default_old` branch
 ```bash
 cd ~/steamcmd
@@ -303,6 +305,23 @@ cd ~/steamcmd
     +quit
 ```
 3. In Steam, right-click the game, open Properties, go to Betas and select `default_old` from the dropdown and wait for the game to update (this might take a few minutes).
+4. Start the game and connect to your server as normal.
+
+
+## Switching to the Public Beta Branch
+1. Run SteamCMD to change to the `public-test` branch
+```bash
+cd ~/steamcmd
+
+./steamcmd.sh \
+    +@sSteamCmdForcePlatformType linux \
+    +force_install_dir "/home/$USER/valheim_server" \
+    +login anonymous \
+    +app_update 896660 -beta public-test -betapassword yesimadebackups validate \
+    +quit
+```
+3. In Steam, right-click the game, open Properties, go to Betas and select `public-test` from the dropdown and wait for the game to update (this might take a few minutes).  
+   If `public-test` is not in the list, type in `yesimadebackups` in the Input field below and press **Check Code**.
 4. Start the game and connect to your server as normal.
 
 
@@ -320,7 +339,6 @@ cd ~/steamcmd
 ```
 3. In Steam, right-click the game, open Properties, go to Betas and select `None` from the dropdown and wait for the game to update (this might take a few minutes).
 4. Start the game and connect to your server as normal.
-
 
 
 # Oracle and Reclamation of Idle Compute Instances
