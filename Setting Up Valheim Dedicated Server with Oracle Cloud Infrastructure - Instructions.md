@@ -22,6 +22,7 @@
 - [Installer Self-update](#installer-self-update)
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
 - [Troubleshooting](#troubleshooting)
+  - [Discord](#discord)
 - [Changing versions](#changing-versions)
   - [Switcing to the Previous Stable Version](#switcing-to-the-previous-stable-version)
   - [Switching to the Public Beta Branch](#switching-to-the-public-beta-branch)
@@ -286,6 +287,10 @@ This creates a gist (similar to this guide) which we can go through to troublesh
 
 I might be delayed due to work / timezones etc, but hoping to get you going as quickly as possible.
 
+
+## Discord
+I've decided to open up my discord server so if you need help or would like to suggest improvements or similar, please tag along.  
+https://discord.gg/8PRmYhPz
 
 
 # Changing versions
