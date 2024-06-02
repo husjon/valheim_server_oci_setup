@@ -418,6 +418,12 @@ function main {
     echo "A readme with additional commands have also been placed in the home directory"
 }
 
+if [ `id -u` -eq 0 ]; then
+    error Please run this script as a regular user.
+
+    exit 1
+fi
+
 perform_self_update
 
 
