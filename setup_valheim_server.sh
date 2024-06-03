@@ -202,17 +202,23 @@ function main {
 
     # Add x86_64 version of libpulse-mainloop-glib.so.0
     if [[ $CROSSPLAY_SUPPORT == true ]]; then
-        if [[ ! -f ~/valheim_server/linux64/libpulse-mainloop-glib.so.0 ]]; then
-            info "Installing libpulse-mainloop-glib.so.0:x86_64"
-            pushd "$(mktemp -d)" > /dev/null
-            wget http://mirrors.kernel.org/ubuntu/pool/main/p/pulseaudio/libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb
-            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./ && \
-                cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
-            success "Installing libpulse-mainloop-glib.so.0:x86_64 - Done"
-            popd > /dev/null
+        if [[ $BOX64_VERSION == 'v0.2.6']]; then
+            if [[ ! -f ~/valheim_server/linux64/libpulse-mainloop-glib.so.0 ]]; then
+                info "Installing libpulse-mainloop-glib.so.0:x86_64"
+                pushd "$(mktemp -d)" > /dev/null
+                wget http://mirrors.kernel.org/ubuntu/pool/main/p/pulseaudio/libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb
+                dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./ && \
+                    cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
+                success "Installing libpulse-mainloop-glib.so.0:x86_64 - Done"
+                popd > /dev/null
+            fi
+        else
+            if [[ -f ~/valheim_server/linux64/libpulse-mainloop-glib.so.0 ]]; then
+                rm -f "/home/$USER/valheim_server/linux64/libpulse-mainloop-glib.so.0"
+            fi
+
+            sudo DEBIAN_FRONTEND=noninteractive apt install libpulse-mainloop-glib0
         fi
-    else
-        rm -f "/home/$USER/valheim_server/linux64/libpulse-mainloop-glib.so.0"
     fi
 
 
