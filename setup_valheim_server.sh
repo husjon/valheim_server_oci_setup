@@ -204,12 +204,12 @@ function main {
     if [[ $CROSSPLAY_SUPPORT == true ]]; then
         if [[ ! -f ~/valheim_server/linux64/libpulse-mainloop-glib.so.0 ]]; then
             info "Installing libpulse-mainloop-glib.so.0:x86_64"
-            pushd "$(mktemp -d)"
+            pushd "$(mktemp -d)" > /dev/null
             wget http://mirrors.kernel.org/ubuntu/pool/main/p/pulseaudio/libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb
             dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./ && \
                 cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
             success "Installing libpulse-mainloop-glib.so.0:x86_64 - Done"
-            popd
+            popd > /dev/null
         fi
     else
         rm -f "/home/$USER/valheim_server/linux64/libpulse-mainloop-glib.so.0"
