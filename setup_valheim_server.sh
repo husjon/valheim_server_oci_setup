@@ -155,7 +155,7 @@ function main {
         if ! grep -F '[valheim_server.x86_64]  #box64 v0.2.6' ~/.box64rc; then
             info "Adding box64 configuration"
             cat <<-EOF | tee -a ~/.box64rc
-			[valheim_server.x86_64]
+			[valheim_server.x86_64]  #box64 v0.2.6
 			BOX64_DYNAREC_BLEEDING_EDGE=0
 			BOX64_DYNAREC_STRONGMEM=3
 			EOF
