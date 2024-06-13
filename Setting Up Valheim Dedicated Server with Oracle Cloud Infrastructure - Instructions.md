@@ -290,7 +290,7 @@ I might be delayed due to work / timezones etc, but hoping to get you going as q
 
 ## Discord
 I've decided to open up my discord server so if you need help or would like to suggest improvements or similar, please tag along.  
-https://discord.gg/8PRmYhPz
+https://discord.gg/ExnzM4E7pE
 
 
 # Changing versions
