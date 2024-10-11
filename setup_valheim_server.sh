@@ -113,9 +113,9 @@ function main {
         cmake \
         gcc-arm-linux-gnueabihf \
         git \
-        libc6:armhf \
-        libncurses5:armhf \
-        libstdc++6:armhf \
+        libc6 \
+        libncurses6 \
+        libstdc++6 \
         libpulse0 && \
         success "Installing required packages - Done"
 
