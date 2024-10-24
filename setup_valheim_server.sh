@@ -51,6 +51,13 @@ function main {
     # Stop on error
     set -e
 
+    if [[ $(lsb_release -rs) != '22.04' ]]; then
+        error "The release \"$(lsb_release  -ds 2>/dev/null)\" is not supported, please re-install using Ubuntu 22.04 LTS."
+        echo "See https://gist.github.com/husjon/c5225997eb9798d38db9f2fca98891ef#ubuntu-version for more information"
+        echo
+        exit 1
+    fi
+
     cd
 
     while :; do
