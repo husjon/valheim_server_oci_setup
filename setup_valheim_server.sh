@@ -113,7 +113,7 @@ function main {
         cmake \
         gcc-arm-linux-gnueabihf \
         git \
-        libc6 \
+        libc6:armhf \
         libncurses6 \
         libstdc++6 \
         libpulse0 && \
