@@ -2,6 +2,8 @@
 
 - [Table of Content](#table-of-content)
 - [:warning: Disclaimer :warning:](#warning-disclaimer-warning)
+  - [Ubuntu version](#ubuntu-version)
+  - [Box64 configuration](#box64-configuration)
 - [Credit](#credit)
 - [Instructions](#instructions)
 - [Pre-requisite](#pre-requisite)
@@ -32,6 +34,14 @@
 
 
 # :warning: Disclaimer :warning:
+
+## Ubuntu version
+Currently the only supported version of Ubuntu is Ubuntu 22.04 LTS, please make sure the image **Canonical Ubuntu 22.04 Minimal aarch64** is selected during the setup procedure.
+
+This is because changes was done in preparation to how timestamps will be handled prior to 2038.  
+This was added last minute prior to the Ubuntu 24.04LTS release cycle feature feeeze, which unfortunately impacted `armhf` which we rely on here, more information can be found at the ubuntu mailing list: https://lists.ubuntu.com/archives/ubuntu-devel-announce/2024-March/001344.html
+
+## Box64 configuration
 
 This install script has now been updated with a configuration for box64 which has been tested to work for a few weeks and by different people using this guide.  
 If you have made any changes to the `~/.box64rc` configuration file for the `[valheim_server.x86_64]` section, please remove it and run the setup script.  
@@ -95,7 +105,7 @@ Verify that we have a set of SSH key pairs
 ## Creating the VM instance
 1. From the Getting Started dashboard, scroll down a bit and click the **Create a VM instance**
 2. On the right hand side of **Image and shape** click **Edit**
-    1. Click **Change image** and choose a **Canonical Ubuntu Minimal aarch64** and confirm with the **Select image** button.  
+    1. Click **Change image** and choose a **Canonical Ubuntu 22.04 Minimal aarch64** and confirm with the **Select image** button.  
     **Note:** make sure you select **aarch64** which is aimed at ARM server
     2. Click **Change shape** and set the following:
         * Instance type: `Virtual machine`
