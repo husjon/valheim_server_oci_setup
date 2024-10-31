@@ -218,7 +218,7 @@ More information can be found in the attached Readme.md file and can be viewed w
 Whenever the Valheim client updates, the server also needs to be updated.  
 To do this, log onto the VM then run the command `valheim_server update`  
 This will stop the running server and update the server files.  
-Once done, you must start the server using `valheim_server update`
+Once done, you must start the server using `valheim_server start`
 
 
 
