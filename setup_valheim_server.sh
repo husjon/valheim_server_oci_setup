@@ -436,6 +436,6 @@ perform_self_update
 
 # Pinned versions for Box 64 / 86
 BOX64_VERSION="v0.2.6"
-# BOX86_VERSION="v0.3.0"
+BOX86_VERSION="v0.3.6"
 
 main | tee install_valheim_server.log
