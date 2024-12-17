@@ -439,3 +439,5 @@ BOX64_VERSION="${BOX64_VERSION:-v0.2.6}"
 BOX86_VERSION="${BOX86_VERSION:-1e749beb2e84401344337b2f3865f156a667d946}"
 
 main | tee install_valheim_server.log
+
+# vim: sw=4 ts=4
