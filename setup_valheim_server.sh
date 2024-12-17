@@ -14,7 +14,7 @@ function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
 
 
 function perform_self_update {
-    SETUP_SCRIPT_URL="https://raw.githubusercontent.com/husjon/valheim_server_oci_setup/refs/heads/main/setup_valheim_server.sh"
+    SETUP_SCRIPT_URL=${SETUP_SCRIPT_URL:-"https://raw.githubusercontent.com/husjon/valheim_server_oci_setup/refs/heads/main/setup_valheim_server.sh"}
 
     ETAG_CACHE="${HOME}/.cache/setup_valheim_server.etag"
     SETUP_SCRIPT_PATH="$(realpath "$0")"
