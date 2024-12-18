@@ -25,7 +25,7 @@ function perform_self_update {
     curl --silent --etag-save "${ETAG_CACHE}" --etag-compare "${ETAG_CACHE}" -L "${SETUP_SCRIPT_URL}" -o "${TEMP_SCRIPT_PATH}"
 
     if [[ -s "${TEMP_SCRIPT_PATH}" ]]; then
-        if ! cmp --silent $SETUP_SCRIPT_PATH $TEMP_SCRIPT_PATH; then
+        if ! cmp --silent "$SETUP_SCRIPT_PATH" "$TEMP_SCRIPT_PATH"; then
             echo "Setup script available, updating..."
 
             notify "Changes (< = removed  |  > = added):"
@@ -234,12 +234,14 @@ function main {
     )
     FIREWALL_RULES_ADDED=false
     for RULE in "${RULES[@]}"; do
-        sudo iptables -C ${RULE} 2>/dev/null ||
-            sudo iptables -I ${RULE} && FIREWALL_RULES_ADDED=true
+        sudo iptables -C "${RULE}" 2>/dev/null ||
+            sudo iptables -I "${RULE}" && FIREWALL_RULES_ADDED=true
     done
     if $FIREWALL_RULES_ADDED; then
         sudo cp /etc/iptables/rules.v4{,.bak}
         TMP_FILE=$(mktemp)
+
+        # shellcheck disable=SC2024 # We need to run the command as root
         sudo iptables-save >"${TMP_FILE}"
         sudo mv "${TMP_FILE}" /etc/iptables/rules.v4
     fi
@@ -404,7 +406,7 @@ function main {
     echo "A readme with additional commands have also been placed in the home directory"
 }
 
-if [ $(id -u) -eq 0 ]; then
+if [ "$(id -u)" -eq 0 ]; then
     error Please run this script as a regular user.
 
     exit 1
