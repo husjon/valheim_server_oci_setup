@@ -12,7 +12,6 @@ function info { echo -en "\n\n${BOLD}[ ] $* ${CLEAR}\n"; }
 function error { echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
 function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
 
-
 function perform_self_update {
     SETUP_SCRIPT_URL=${SETUP_SCRIPT_URL:-"https://raw.githubusercontent.com/husjon/valheim_server_oci_setup/refs/heads/main/setup_valheim_server.sh"}
 
@@ -46,13 +45,12 @@ function perform_self_update {
     rm -f "${TEMP_SCRIPT_PATH}"
 }
 
-
 function main {
     # Stop on error
     set -e
 
     if [[ $(lsb_release -rs) != '22.04' ]]; then
-        error "The release \"$(lsb_release  -ds 2>/dev/null)\" is not supported, please re-install using Ubuntu 22.04 LTS."
+        error "The release \"$(lsb_release -ds 2>/dev/null)\" is not supported, please re-install using Ubuntu 22.04 LTS."
         echo "See https://github.com/husjon/valheim_server_oci_setup?tab=readme-ov-file#ubuntu-version for more information"
         echo
         exit 1
@@ -67,14 +65,16 @@ function main {
         read -r answer
 
         case $answer in
-            YES|Yes|yes|y)
-                break;;
-            NO|No|no|n)
-                echo Aborting; exit;;
+        YES | Yes | yes | y)
+            break
+            ;;
+        NO | No | no | n)
+            echo Aborting
+            exit
+            ;;
         esac
     done
     echo
-
 
     while :; do
         echo "Should this server use crossplay?"
@@ -84,16 +84,16 @@ function main {
         read -r answer
 
         case $answer in
-            YES|Yes|yes|y)
-                CROSSPLAY_SUPPORT=true
-                break;;
-            NO|No|no|n|*)
-                CROSSPLAY_SUPPORT=false
-                break;;
+        YES | Yes | yes | y)
+            CROSSPLAY_SUPPORT=true
+            break
+            ;;
+        NO | No | no | n | *)
+            CROSSPLAY_SUPPORT=false
+            break
+            ;;
         esac
     done
-
-
 
     # Update and upgrade the system
     mkdir -p ~/.cache
@@ -111,8 +111,6 @@ function main {
         warn "Rebooting..."
     fi
 
-
-
     # Prepare box86 and box64
     info "Installing required packages"
     sudo apt -y install \
@@ -123,18 +121,17 @@ function main {
         libc6:armhf \
         libncurses6 \
         libstdc++6 \
-        libpulse0 && \
+        libpulse0 &&
         success "Installing required packages - Done"
 
-
-    if uname -p | grep "aarch64" > /dev/null; then
+    if uname -p | grep "aarch64" >/dev/null; then
         notify "Found system to be 64bit Arm"
         # Fetch and build Box 86 and 64
         for ARCH in {86,64}; do
             cd
             if [[ ! -d "$HOME/box${ARCH}" ]]; then
                 info "Fetching Box${ARCH}"
-                git clone "https://github.com/ptitSeb/box${ARCH}" && \
+                git clone "https://github.com/ptitSeb/box${ARCH}" &&
                     mkdir -p "box${ARCH}/build"
                 success "Fetching Box${ARCH} - Done"
             fi
@@ -162,28 +159,24 @@ function main {
         if ! grep -F '[valheim_server.x86_64]  #box64 v0.2.6' ~/.box64rc; then
             info "Adding box64 configuration"
             cat <<-EOF | tee -a ~/.box64rc
-			[valheim_server.x86_64]  #box64 v0.2.6
-			BOX64_DYNAREC_BLEEDING_EDGE=0
-			BOX64_DYNAREC_STRONGMEM=3
+				[valheim_server.x86_64]  #box64 v0.2.6
+				BOX64_DYNAREC_BLEEDING_EDGE=0
+				BOX64_DYNAREC_STRONGMEM=3
 			EOF
         fi
     fi
 
-
-
     # Fetch and initialize steamcmd
     if [[ ! -f ~/steamcmd/steamcmd.sh ]]; then
         info "Fetching steamcmd"
-        mkdir -p ~/steamcmd && \
-            cd ~/steamcmd && \
+        mkdir -p ~/steamcmd &&
+            cd ~/steamcmd &&
             curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
         ./steamcmd.sh +quit && success "Fetching steamcmd - Done"
     fi
     # Add steamcmd steamclient.so symlink
     info "Adding steamclient.so symlink"
     mkdir -p ~/.steam/sdk64 && ln -frs ~/steamcmd/linux64/steamclient.so ~/.steam/sdk64/
-
-
 
     # Install the Valheim Dedicated Server from Steam
     if [[ ! -f ~/valheim_server/start_server.sh ]]; then
@@ -194,11 +187,9 @@ function main {
             +force_install_dir "/home/$USER/valheim_server" \
             +login anonymous \
             +app_update 896660 validate \
-            +quit && \
-                success "Installing Valheim Dedicated Server - Done"
+            +quit &&
+            success "Installing Valheim Dedicated Server - Done"
     fi
-
-
 
     # Add x86_64 version of libpulse-mainloop-glib.so.0
     if [[ $CROSSPLAY_SUPPORT == true ]]; then
@@ -206,7 +197,7 @@ function main {
             info "Installing libpulse-mainloop-glib.so.0:x86_64"
             pushd "$(mktemp -d)"
             wget http://mirrors.kernel.org/ubuntu/pool/main/p/pulseaudio/libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb
-            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./ && \
+            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./ &&
                 cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
             success "Installing libpulse-mainloop-glib.so.0:x86_64 - Done"
             popd
@@ -215,13 +206,11 @@ function main {
         rm -f "/home/$USER/valheim_server/linux64/libpulse-mainloop-glib.so.0"
     fi
 
-
-
     # Initialize the Server Credentials file
     if [[ ! -f ~/server_credentials ]]; then
         info "Generating server_credentials file"
-        PASSWORD="$(tr -dc "a-zA-Z0-9" < /dev/urandom | fold -w "32" | head -n 1)"
-        cat <<-EOF > ~/server_credentials && success "Done"
+        PASSWORD="$(tr -dc "a-zA-Z0-9" </dev/urandom | fold -w "32" | head -n 1)"
+        cat <<-EOF >~/server_credentials && success "Done"
 			SERVER_NAME="My server"
 			WORLD_NAME="My World"
 
@@ -236,8 +225,6 @@ function main {
         success "Generating server_credentials file - Done"
     fi
 
-
-
     # Update firewall
     info "Updating firewall rules"
     RULES=(
@@ -247,23 +234,21 @@ function main {
     )
     FIREWALL_RULES_ADDED=false
     for RULE in "${RULES[@]}"; do
-        sudo iptables -C ${RULE} 2> /dev/null || \
+        sudo iptables -C ${RULE} 2>/dev/null ||
             sudo iptables -I ${RULE} && FIREWALL_RULES_ADDED=true
     done
     if $FIREWALL_RULES_ADDED; then
         sudo cp /etc/iptables/rules.v4{,.bak}
         TMP_FILE=$(mktemp)
-        sudo iptables-save > "${TMP_FILE}"
+        sudo iptables-save >"${TMP_FILE}"
         sudo mv "${TMP_FILE}" /etc/iptables/rules.v4
     fi
     success "Done"
 
-
-
     # Add Valheim helper
     info "Creating Valheim Server helper"
     mkdir -p /usr/sbin
-    cat <<-EOF | sudo tee /usr/sbin/valheim_server > /dev/null
+    cat <<-EOF | sudo tee /usr/sbin/valheim_server >/dev/null
 		#!/bin/bash
 
 		# Stop on error
@@ -339,15 +324,13 @@ function main {
 	EOF
     sudo chmod +x /usr/sbin/valheim_server
 
-
-
     # Set up the Systemd Service
     info "Setting up Systemd Service"
     mkdir -p ~/.config/systemd/user/
 
     [[ $CROSSPLAY_SUPPORT == true ]] && CROSSPLAY="-crossplay"
     # Add servicefile
-    cat <<-EOF > ~/.config/systemd/user/valheim_server.service
+    cat <<-EOF >~/.config/systemd/user/valheim_server.service
 		[Unit]
 		Description=Valheim Dedicated Server
 
@@ -388,10 +371,8 @@ function main {
     # Enable Valheim Systemd service allowing it to start automatically on boot
     systemctl --user enable valheim_server.service && success "Setting up Systemd Service - Done"
 
-
-
     info "Creating Readme"
-	cat <<-EOF > ~/Readme.md && success "Creating Readme - Done"
+    cat <<-EOF >~/Readme.md && success "Creating Readme - Done"
 		# Valheim Server Helper Commands
 		## Help
 		valheim_server help
@@ -411,8 +392,6 @@ function main {
 		It will ask you of you want crossplay enabled or disabled.
 	EOF
 
-
-
     # Start the Valheim Systemd service
     success "Setup finished"
     echo "A file named 'server_credentials' have been placed in the home directory"
@@ -425,14 +404,13 @@ function main {
     echo "A readme with additional commands have also been placed in the home directory"
 }
 
-if [ `id -u` -eq 0 ]; then
+if [ $(id -u) -eq 0 ]; then
     error Please run this script as a regular user.
 
     exit 1
 fi
 
 perform_self_update
-
 
 # Pinned versions for Box 64 / 86
 BOX64_VERSION="${BOX64_VERSION:-v0.2.6}"
