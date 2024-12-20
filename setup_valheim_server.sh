@@ -323,6 +323,30 @@ function install_systemd_service() {
 	EOF
 }
 
+function install_readmefile() {
+    info "Creating Readme"
+    cat <<-EOF >~/Readme.md
+		# Valheim Server Helper Commands
+		## Help
+		valheim_server help
+
+		## Start server
+		valheim_server start
+
+		## Stop server
+		valheim_server stop
+
+		## Updating the server
+		valheim_server upgrade
+
+
+		# Enable / Disable crossplay
+		This can be accomplished by re-running the setup script.
+		It will ask you of you want crossplay enabled or disabled.
+	EOF
+    success "Creating Readme - Done"
+}
+
 function main {
     # Stop on error
     set -e
@@ -427,27 +451,8 @@ function main {
     systemctl --user enable valheim_server.service
     success "Setting up Systemd Service - Done"
 
-    info "Creating Readme"
-    cat <<-EOF >~/Readme.md
-		# Valheim Server Helper Commands
-		## Help
-		valheim_server help
-
-		## Start server
-		valheim_server start
-
-		## Stop server
-		valheim_server stop
-
-		## Updating the server
-		valheim_server upgrade
-
-
-		# Enable / Disable crossplay
-		This can be accomplished by re-running the setup script.
-		It will ask you of you want crossplay enabled or disabled.
-	EOF
-    success "Creating Readme - Done"
+    # Create Readme.md file in home directory
+    install_readmefile
 
     # Start the Valheim Systemd service
     success "Setup finished"
