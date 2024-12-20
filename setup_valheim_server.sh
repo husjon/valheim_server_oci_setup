@@ -114,8 +114,8 @@ function main {
         touch ~/.cache/valheim_server_setup
         success "Updating and upgrading the OS - Done"
 
-        sudo reboot
         warn "Rebooting..."
+        sudo reboot
     fi
 
     # Prepare box86 and box64
