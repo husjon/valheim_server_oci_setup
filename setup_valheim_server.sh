@@ -279,6 +279,50 @@ function install_valheim_server_helper() {
     sudo chmod +x /usr/sbin/valheim_server
 }
 
+function install_systemd_service() {
+    [[ $CROSSPLAY_SUPPORT == true ]] && CROSSPLAY="-crossplay"
+
+    cat <<-EOF >~/.config/systemd/user/valheim_server.service
+		[Unit]
+		Description=Valheim Dedicated Server
+
+		[Service]
+		KillSignal=SIGINT
+		TimeoutStopSec=30
+
+		Restart=always
+		RestartSec=5
+
+		WorkingDirectory=/home/${USER}/valheim_server
+		EnvironmentFile=/home/${USER}/server_credentials
+
+		Environment=SteamAppId=892970
+		Environment=LD_LIBRARY_PATH="./linux64:\$LD_LIBRARY_PATH"
+
+		ExecStart=/home/${USER}/valheim_server/valheim_server.x86_64 \\
+		    -nographics \\
+		    -batchmode \\
+		    -port "\${PORT}" \\
+		    -public "\${PUBLIC}" \\
+		    -name "\${SERVER_NAME}" \\
+		    -world "\${WORLD_NAME}" \\
+		    -password "\${PASSWORD}" \\
+		    ${CROSSPLAY} \\
+		    -savedir "/home/${USER}/valheim_data"
+
+		[Install]
+		WantedBy=default.target
+	EOF
+    # Add override
+    mkdir -p ~/.config/systemd/user/valheim_server.service.d/
+    cat <<-EOF >~/.config/systemd/user/valheim_server.service.d/override.conf
+		[Service]
+		# NOTE: Leave the first ExecStart blank
+		ExecStart=
+		ExecStart=/home/ubuntu/valheim_server/valheim_server.x86_64
+	EOF
+}
+
 function main {
     # Stop on error
     set -e
@@ -370,47 +414,8 @@ function main {
     info "Setting up Systemd Service"
     mkdir -p ~/.config/systemd/user/
 
-    [[ $CROSSPLAY_SUPPORT == true ]] && CROSSPLAY="-crossplay"
     # Add servicefile
-    cat <<-EOF >~/.config/systemd/user/valheim_server.service
-		[Unit]
-		Description=Valheim Dedicated Server
-
-		[Service]
-		KillSignal=SIGINT
-		TimeoutStopSec=30
-
-		Restart=always
-		RestartSec=5
-
-		WorkingDirectory=/home/${USER}/valheim_server
-		EnvironmentFile=/home/${USER}/server_credentials
-
-		Environment=SteamAppId=892970
-		Environment=LD_LIBRARY_PATH="./linux64:\$LD_LIBRARY_PATH"
-
-		ExecStart=/home/${USER}/valheim_server/valheim_server.x86_64 \\
-		    -nographics \\
-		    -batchmode \\
-		    -port "\${PORT}" \\
-		    -public "\${PUBLIC}" \\
-		    -name "\${SERVER_NAME}" \\
-		    -world "\${WORLD_NAME}" \\
-		    -password "\${PASSWORD}" \\
-		    ${CROSSPLAY} \\
-		    -savedir "/home/${USER}/valheim_data"
-
-		[Install]
-		WantedBy=default.target
-	EOF
-    # Add override
-    mkdir -p ~/.config/systemd/user/valheim_server.service.d/
-    cat <<-EOF >~/.config/systemd/user/valheim_server.service.d/override.conf
-		[Service]
-		# NOTE: Leave the first ExecStart blank
-		ExecStart=
-		ExecStart=/home/ubuntu/valheim_server/valheim_server.x86_64
-	EOF
+    install_systemd_service
 
     # Enable Lingering Systemd user sessions
     loginctl enable-linger
