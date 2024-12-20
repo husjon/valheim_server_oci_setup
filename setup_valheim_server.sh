@@ -105,8 +105,10 @@ function main {
 
         info "Updating and upgrading the OS"
         sudo apt -y update
-        sudo apt -y upgrade && touch ~/.cache/valheim_server_setup
+        sudo apt -y upgrade
+        touch ~/.cache/valheim_server_setup
         success "Updating and upgrading the OS - Done"
+
         sudo reboot
         warn "Rebooting..."
     fi
@@ -121,8 +123,8 @@ function main {
         libc6:armhf \
         libncurses6 \
         libstdc++6 \
-        libpulse0 &&
-        success "Installing required packages - Done"
+        libpulse0
+    success "Installing required packages - Done"
 
     if uname -p | grep "aarch64" >/dev/null; then
         notify "Found system to be 64bit Arm"
@@ -131,8 +133,8 @@ function main {
             cd
             if [[ ! -d "$HOME/box${ARCH}" ]]; then
                 info "Fetching Box${ARCH}"
-                git clone "https://github.com/ptitSeb/box${ARCH}" &&
-                    mkdir -p "box${ARCH}/build"
+                git clone "https://github.com/ptitSeb/box${ARCH}"
+                mkdir -p "box${ARCH}/build"
                 success "Fetching Box${ARCH} - Done"
             fi
 
@@ -149,10 +151,12 @@ function main {
 
             git checkout "${TAG}"
             cmake .. -DRPI4ARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
-            make -j"$(nproc)" && success "Building Box${ARCH} - Done"
+            make -j"$(nproc)"
+            success "Building Box${ARCH} - Done"
 
             info "Installing Box${ARCH}"
-            sudo make install && success "Installing Box${ARCH} - Done"
+            sudo make install
+            success "Installing Box${ARCH} - Done"
         done
         sudo systemctl restart systemd-binfmt.service
 
@@ -169,14 +173,18 @@ function main {
     # Fetch and initialize steamcmd
     if [[ ! -f ~/steamcmd/steamcmd.sh ]]; then
         info "Fetching steamcmd"
-        mkdir -p ~/steamcmd &&
-            cd ~/steamcmd &&
-            curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
-        ./steamcmd.sh +quit && success "Fetching steamcmd - Done"
+        mkdir -p ~/steamcmd
+        cd ~/steamcmd
+        curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+
+        ./steamcmd.sh +quit
+
+        success "Fetching steamcmd - Done"
     fi
     # Add steamcmd steamclient.so symlink
     info "Adding steamclient.so symlink"
-    mkdir -p ~/.steam/sdk64 && ln -frs ~/steamcmd/linux64/steamclient.so ~/.steam/sdk64/
+    mkdir -p ~/.steam/sdk64
+    ln -frs ~/steamcmd/linux64/steamclient.so ~/.steam/sdk64/
 
     # Install the Valheim Dedicated Server from Steam
     if [[ ! -f ~/valheim_server/start_server.sh ]]; then
@@ -187,8 +195,8 @@ function main {
             +force_install_dir "/home/$USER/valheim_server" \
             +login anonymous \
             +app_update 896660 validate \
-            +quit &&
-            success "Installing Valheim Dedicated Server - Done"
+            +quit
+        success "Installing Valheim Dedicated Server - Done"
     fi
 
     # Add x86_64 version of libpulse-mainloop-glib.so.0
@@ -197,8 +205,8 @@ function main {
             info "Installing libpulse-mainloop-glib.so.0:x86_64"
             pushd "$(mktemp -d)"
             wget http://mirrors.kernel.org/ubuntu/pool/main/p/pulseaudio/libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb
-            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./ &&
-                cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
+            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./
+            cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
             success "Installing libpulse-mainloop-glib.so.0:x86_64 - Done"
             popd
         fi
@@ -210,7 +218,7 @@ function main {
     if [[ ! -f ~/server_credentials ]]; then
         info "Generating server_credentials file"
         PASSWORD="$(tr -dc "a-zA-Z0-9" </dev/urandom | fold -w "32" | head -n 1)"
-        cat <<-EOF >~/server_credentials && success "Done"
+        cat <<-EOF >~/server_credentials
 			SERVER_NAME="My server"
 			WORLD_NAME="My World"
 
@@ -234,8 +242,10 @@ function main {
     )
     FIREWALL_RULES_ADDED=false
     for RULE in "${RULES[@]}"; do
-        sudo iptables -C "${RULE}" 2>/dev/null ||
-            sudo iptables -I "${RULE}" && FIREWALL_RULES_ADDED=true
+        if ! sudo iptables -C ${RULE} 2>/dev/null; then
+            sudo iptables -I ${RULE}
+            FIREWALL_RULES_ADDED=true
+        fi
     done
     if $FIREWALL_RULES_ADDED; then
         sudo cp /etc/iptables/rules.v4{,.bak}
@@ -371,10 +381,11 @@ function main {
     systemctl --user daemon-reload
 
     # Enable Valheim Systemd service allowing it to start automatically on boot
-    systemctl --user enable valheim_server.service && success "Setting up Systemd Service - Done"
+    systemctl --user enable valheim_server.service
+    success "Setting up Systemd Service - Done"
 
     info "Creating Readme"
-    cat <<-EOF >~/Readme.md && success "Creating Readme - Done"
+    cat <<-EOF >~/Readme.md
 		# Valheim Server Helper Commands
 		## Help
 		valheim_server help
@@ -393,6 +404,7 @@ function main {
 		This can be accomplished by re-running the setup script.
 		It will ask you of you want crossplay enabled or disabled.
 	EOF
+    success "Creating Readme - Done"
 
     # Start the Valheim Systemd service
     success "Setup finished"
