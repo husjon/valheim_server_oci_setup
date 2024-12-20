@@ -50,6 +50,26 @@ function perform_self_update {
     rm -f "${TEMP_SCRIPT_PATH}"
 }
 
+function initial_setup() {
+    mkdir -p ~/.cache
+
+    if [[ ! -f ~/.cache/valheim_server_setup ]]; then
+        info "First time setup"
+        info "Adding Architecture"
+        sudo apt -y update
+        sudo dpkg --add-architecture armhf
+
+        info "Updating and upgrading the OS"
+        sudo apt -y update
+        sudo apt -y upgrade
+        touch ~/.cache/valheim_server_setup
+        success "Updating and upgrading the OS - Done"
+
+        warn "Rebooting..."
+        sudo reboot
+    fi
+}
+
 function main {
     # Stop on error
     set -e
@@ -101,22 +121,7 @@ function main {
     done
 
     # Update and upgrade the system
-    mkdir -p ~/.cache
-    if [[ ! -f ~/.cache/valheim_server_setup ]]; then
-        info "First time setup"
-        info "Adding Architecture"
-        sudo apt -y update
-        sudo dpkg --add-architecture armhf
-
-        info "Updating and upgrading the OS"
-        sudo apt -y update
-        sudo apt -y upgrade
-        touch ~/.cache/valheim_server_setup
-        success "Updating and upgrading the OS - Done"
-
-        warn "Rebooting..."
-        sudo reboot
-    fi
+    initial_setup
 
     # Prepare box86 and box64
     info "Installing required packages"
