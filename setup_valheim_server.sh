@@ -174,6 +174,31 @@ function install_valheim_dedicated_server() {
     fi
 }
 
+function update_firewall() {
+    info "Updating firewall rules"
+    RULES=(
+        "INPUT -p udp -m state --state NEW -m udp --dport 2456 -j ACCEPT"
+        "INPUT -p udp -m state --state NEW -m udp --dport 2457 -j ACCEPT"
+        "INPUT -p udp -m state --state NEW -m udp --dport 2458 -j ACCEPT"
+    )
+    FIREWALL_RULES_ADDED=false
+    for RULE in "${RULES[@]}"; do
+        if ! sudo iptables -C ${RULE} 2>/dev/null; then
+            sudo iptables -I ${RULE}
+            FIREWALL_RULES_ADDED=true
+        fi
+    done
+    if $FIREWALL_RULES_ADDED; then
+        sudo cp /etc/iptables/rules.v4{,.bak}
+        TMP_FILE=$(mktemp)
+
+        # shellcheck disable=SC2024 # We need to run the command as root
+        sudo iptables-save >"${TMP_FILE}"
+        sudo mv "${TMP_FILE}" /etc/iptables/rules.v4
+    fi
+    success "Done"
+}
+
 function main {
     # Stop on error
     set -e
@@ -256,28 +281,7 @@ function main {
     fi
 
     # Update firewall
-    info "Updating firewall rules"
-    RULES=(
-        "INPUT -p udp -m state --state NEW -m udp --dport 2456 -j ACCEPT"
-        "INPUT -p udp -m state --state NEW -m udp --dport 2457 -j ACCEPT"
-        "INPUT -p udp -m state --state NEW -m udp --dport 2458 -j ACCEPT"
-    )
-    FIREWALL_RULES_ADDED=false
-    for RULE in "${RULES[@]}"; do
-        if ! sudo iptables -C ${RULE} 2>/dev/null; then
-            sudo iptables -I ${RULE}
-            FIREWALL_RULES_ADDED=true
-        fi
-    done
-    if $FIREWALL_RULES_ADDED; then
-        sudo cp /etc/iptables/rules.v4{,.bak}
-        TMP_FILE=$(mktemp)
-
-        # shellcheck disable=SC2024 # We need to run the command as root
-        sudo iptables-save >"${TMP_FILE}"
-        sudo mv "${TMP_FILE}" /etc/iptables/rules.v4
-    fi
-    success "Done"
+    update_firewall
 
     # Add Valheim helper
     info "Creating Valheim Server helper"
