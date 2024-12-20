@@ -313,14 +313,6 @@ function install_systemd_service() {
 		[Install]
 		WantedBy=default.target
 	EOF
-    # Add override
-    mkdir -p ~/.config/systemd/user/valheim_server.service.d/
-    cat <<-EOF >~/.config/systemd/user/valheim_server.service.d/override.conf
-		[Service]
-		# NOTE: Leave the first ExecStart blank
-		ExecStart=
-		ExecStart=/home/ubuntu/valheim_server/valheim_server.x86_64
-	EOF
 }
 
 function install_readmefile() {
