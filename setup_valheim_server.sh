@@ -13,6 +13,11 @@ function error { echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
 function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
 
 function perform_self_update {
+    if [[ -n $NO_SELF_UPDATE ]]; then
+        notify "Skipping self-update"
+        return
+    fi
+
     SETUP_SCRIPT_URL=${SETUP_SCRIPT_URL:-"https://raw.githubusercontent.com/husjon/valheim_server_oci_setup/refs/heads/main/setup_valheim_server.sh"}
 
     ETAG_CACHE="${HOME}/.cache/setup_valheim_server.etag"
