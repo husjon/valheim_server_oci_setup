@@ -199,6 +199,86 @@ function update_firewall() {
     success "Done"
 }
 
+function install_valheim_server_helper() {
+    info "Creating Valheim Server helper"
+    mkdir -p /usr/sbin
+    cat <<-EOF | sudo tee /usr/sbin/valheim_server >/dev/null
+		#!/bin/bash
+
+		# Stop on error
+		set -e
+
+		function show_usage {
+		    echo "Usage:  \$(basename \$0) COMMAND"
+		    echo
+		    echo "Commands:"
+		    echo "  update      Stops and Updates the Valheim server"
+		    echo "  start       Start the Valheim server"
+		    echo "  stop        Stops the Valheim server"
+		    echo "  restart     Restart the Valheim server"
+		    echo "  logs        Shows the logs of the Valheim server"
+		    echo "  logs-live   Shows the live logs of the Valheim server"
+		    echo "  help        Shows this help message"
+		    echo
+		}
+
+		function start_server {
+		    if ! systemctl --user --quiet is-active valheim_server; then
+		        echo "Starting Server..."
+		        systemctl --user start valheim_server
+
+		        sleep 2     # sleeping to allow service to start up before validating.
+
+		        systemctl --user --quiet is-active valheim_server && \
+		            echo "Server Started"
+		    else
+		        echo "Server already running"
+		    fi
+		}
+
+		function stop_server {
+		    if systemctl --user --quiet is-active valheim_server; then
+		        echo "Stopping Server, please wait..."
+		        systemctl --user stop valheim_server
+		        echo "Server Stopped"
+		    else
+		        echo "Server already stopped"
+		    fi
+		}
+
+		function restart_server {
+		    stop_server && start_server
+		}
+
+
+		case \$1 in
+		    update)
+		        stop_server
+
+		        /home/\${USER}/steamcmd/steamcmd.sh \\
+		            +@sSteamCmdForcePlatformType linux \\
+		            +force_install_dir "/home/\${USER}/valheim_server" \\
+		            +login anonymous \\
+		            +app_update 896660 validate \\
+		            +quit
+		        echo
+		        echo "Server updated."
+		        echo "Start the server with \"valheim_server start\""
+		    ;;
+
+		    start|stop|restart)
+		        \${1}_server;;
+		    logs)
+		        journalctl --user -u valheim_server;;
+		    logs-live)
+		        journalctl --user -f -u valheim_server;;
+		    help|--help|-h|*)
+		        show_usage;;
+		esac
+	EOF
+    sudo chmod +x /usr/sbin/valheim_server
+}
+
 function main {
     # Stop on error
     set -e
@@ -284,83 +364,7 @@ function main {
     update_firewall
 
     # Add Valheim helper
-    info "Creating Valheim Server helper"
-    mkdir -p /usr/sbin
-    cat <<-EOF | sudo tee /usr/sbin/valheim_server >/dev/null
-		#!/bin/bash
-
-		# Stop on error
-		set -e
-
-		function show_usage {
-		    echo "Usage:  \$(basename \$0) COMMAND"
-		    echo
-		    echo "Commands:"
-		    echo "  update      Stops and Updates the Valheim server"
-		    echo "  start       Start the Valheim server"
-		    echo "  stop        Stops the Valheim server"
-		    echo "  restart     Restart the Valheim server"
-		    echo "  logs        Shows the logs of the Valheim server"
-		    echo "  logs-live   Shows the live logs of the Valheim server"
-		    echo "  help        Shows this help message"
-		    echo
-		}
-
-		function start_server {
-		    if ! systemctl --user --quiet is-active valheim_server; then
-		        echo "Starting Server..."
-		        systemctl --user start valheim_server
-
-		        sleep 2     # sleeping to allow service to start up before validating.
-
-		        systemctl --user --quiet is-active valheim_server && \
-		            echo "Server Started"
-		    else
-		        echo "Server already running"
-		    fi
-		}
-
-		function stop_server {
-		    if systemctl --user --quiet is-active valheim_server; then
-		        echo "Stopping Server, please wait..."
-		        systemctl --user stop valheim_server
-		        echo "Server Stopped"
-		    else
-		        echo "Server already stopped"
-		    fi
-		}
-
-		function restart_server {
-		    stop_server && start_server
-		}
-
-
-		case \$1 in
-		    update)
-		        stop_server
-
-		        /home/\${USER}/steamcmd/steamcmd.sh \\
-		            +@sSteamCmdForcePlatformType linux \\
-		            +force_install_dir "/home/\${USER}/valheim_server" \\
-		            +login anonymous \\
-		            +app_update 896660 validate \\
-		            +quit
-		        echo
-		        echo "Server updated."
-		        echo "Start the server with \"valheim_server start\""
-		    ;;
-
-		    start|stop|restart)
-		        \${1}_server;;
-		    logs)
-		        journalctl --user -u valheim_server;;
-		    logs-live)
-		        journalctl --user -f -u valheim_server;;
-		    help|--help|-h|*)
-		        show_usage;;
-		esac
-	EOF
-    sudo chmod +x /usr/sbin/valheim_server
+    install_valheim_server_helper
 
     # Set up the Systemd Service
     info "Setting up Systemd Service"
