@@ -128,6 +128,23 @@ function install_box86_and_box64() {
     fi
 }
 
+function install_steamcmd() {
+    if [[ ! -f ~/steamcmd/steamcmd.sh ]]; then
+        info "Fetching steamcmd"
+        mkdir -p ~/steamcmd
+        cd ~/steamcmd
+        curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+
+        ./steamcmd.sh +quit
+
+        success "Fetching steamcmd - Done"
+    fi
+    # Add steamcmd steamclient.so symlink
+    info "Adding steamclient.so symlink"
+    mkdir -p ~/.steam/sdk64
+    ln -frs ~/steamcmd/linux64/steamclient.so ~/.steam/sdk64/
+}
+
 function main {
     # Stop on error
     set -e
@@ -185,20 +202,7 @@ function main {
     install_box86_and_box64
 
     # Fetch and initialize steamcmd
-    if [[ ! -f ~/steamcmd/steamcmd.sh ]]; then
-        info "Fetching steamcmd"
-        mkdir -p ~/steamcmd
-        cd ~/steamcmd
-        curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
-
-        ./steamcmd.sh +quit
-
-        success "Fetching steamcmd - Done"
-    fi
-    # Add steamcmd steamclient.so symlink
-    info "Adding steamclient.so symlink"
-    mkdir -p ~/.steam/sdk64
-    ln -frs ~/steamcmd/linux64/steamclient.so ~/.steam/sdk64/
+    install_steamcmd
 
     # Install the Valheim Dedicated Server from Steam
     if [[ ! -f ~/valheim_server/start_server.sh ]]; then
