@@ -145,6 +145,35 @@ function install_steamcmd() {
     ln -frs ~/steamcmd/linux64/steamclient.so ~/.steam/sdk64/
 }
 
+function install_valheim_dedicated_server() {
+    if [[ ! -f ~/valheim_server/start_server.sh ]]; then
+        info "Installing Valheim Dedicated Server"
+        cd ~/steamcmd
+        ./steamcmd.sh \
+            +@sSteamCmdForcePlatformType linux \
+            +force_install_dir "/home/$USER/valheim_server" \
+            +login anonymous \
+            +app_update 896660 validate \
+            +quit
+        success "Installing Valheim Dedicated Server - Done"
+    fi
+
+    # Add x86_64 version of libpulse-mainloop-glib.so.0
+    if [[ $CROSSPLAY_SUPPORT == true ]]; then
+        if [[ ! -f ~/valheim_server/linux64/libpulse-mainloop-glib.so.0 ]]; then
+            info "Installing libpulse-mainloop-glib.so.0:x86_64"
+            pushd "$(mktemp -d)"
+            wget http://mirrors.kernel.org/ubuntu/pool/main/p/pulseaudio/libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb
+            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./
+            cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
+            success "Installing libpulse-mainloop-glib.so.0:x86_64 - Done"
+            popd
+        fi
+    else
+        rm -f "/home/$USER/valheim_server/linux64/libpulse-mainloop-glib.so.0"
+    fi
+}
+
 function main {
     # Stop on error
     set -e
@@ -205,32 +234,7 @@ function main {
     install_steamcmd
 
     # Install the Valheim Dedicated Server from Steam
-    if [[ ! -f ~/valheim_server/start_server.sh ]]; then
-        info "Installing Valheim Dedicated Server"
-        cd ~/steamcmd
-        ./steamcmd.sh \
-            +@sSteamCmdForcePlatformType linux \
-            +force_install_dir "/home/$USER/valheim_server" \
-            +login anonymous \
-            +app_update 896660 validate \
-            +quit
-        success "Installing Valheim Dedicated Server - Done"
-    fi
-
-    # Add x86_64 version of libpulse-mainloop-glib.so.0
-    if [[ $CROSSPLAY_SUPPORT == true ]]; then
-        if [[ ! -f ~/valheim_server/linux64/libpulse-mainloop-glib.so.0 ]]; then
-            info "Installing libpulse-mainloop-glib.so.0:x86_64"
-            pushd "$(mktemp -d)"
-            wget http://mirrors.kernel.org/ubuntu/pool/main/p/pulseaudio/libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb
-            dpkg -x libpulse-mainloop-glib0_15.99.1+dfsg1-1ubuntu1_amd64.deb ./
-            cp usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 "/home/$USER/valheim_server/linux64/"
-            success "Installing libpulse-mainloop-glib.so.0:x86_64 - Done"
-            popd
-        fi
-    else
-        rm -f "/home/$USER/valheim_server/linux64/libpulse-mainloop-glib.so.0"
-    fi
+    install_valheim_dedicated_server
 
     # Initialize the Server Credentials file
     if [[ ! -f ~/server_credentials ]]; then
