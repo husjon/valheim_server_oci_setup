@@ -70,60 +70,7 @@ function initial_setup() {
     fi
 }
 
-function main {
-    # Stop on error
-    set -e
-
-    if [[ $(lsb_release -rs) != '22.04' ]]; then
-        error "The release \"$(lsb_release -ds 2>/dev/null)\" is not supported, please re-install using Ubuntu 22.04 LTS."
-        echo "See https://github.com/husjon/valheim_server_oci_setup?tab=readme-ov-file#ubuntu-version for more information"
-        echo
-        exit 1
-    fi
-
-    cd
-
-    while :; do
-        echo "This script will install the Valheim Dedicated server "
-        echo -n "Are you sure? [yes/no]  "
-
-        read -r answer
-
-        case $answer in
-        YES | Yes | yes | y)
-            break
-            ;;
-        NO | No | no | n)
-            echo Aborting
-            exit
-            ;;
-        esac
-    done
-    echo
-
-    while :; do
-        echo "Should this server use crossplay?"
-        echo "Note: this is currenly highly experimental"
-        echo -n "[yes/no] (default: no)  "
-
-        read -r answer
-
-        case $answer in
-        YES | Yes | yes | y)
-            CROSSPLAY_SUPPORT=true
-            break
-            ;;
-        NO | No | no | n | *)
-            CROSSPLAY_SUPPORT=false
-            break
-            ;;
-        esac
-    done
-
-    # Update and upgrade the system
-    initial_setup
-
-    # Prepare box86 and box64
+function install_box86_and_box64() {
     info "Installing required packages"
     sudo apt -y install \
         build-essential \
@@ -179,6 +126,63 @@ function main {
 			EOF
         fi
     fi
+}
+
+function main {
+    # Stop on error
+    set -e
+
+    if [[ $(lsb_release -rs) != '22.04' ]]; then
+        error "The release \"$(lsb_release -ds 2>/dev/null)\" is not supported, please re-install using Ubuntu 22.04 LTS."
+        echo "See https://github.com/husjon/valheim_server_oci_setup?tab=readme-ov-file#ubuntu-version for more information"
+        echo
+        exit 1
+    fi
+
+    cd
+
+    while :; do
+        echo "This script will install the Valheim Dedicated server "
+        echo -n "Are you sure? [yes/no]  "
+
+        read -r answer
+
+        case $answer in
+        YES | Yes | yes | y)
+            break
+            ;;
+        NO | No | no | n)
+            echo Aborting
+            exit
+            ;;
+        esac
+    done
+    echo
+
+    while :; do
+        echo "Should this server use crossplay?"
+        echo "Note: this is currenly highly experimental"
+        echo -n "[yes/no] (default: no)  "
+
+        read -r answer
+
+        case $answer in
+        YES | Yes | yes | y)
+            CROSSPLAY_SUPPORT=true
+            break
+            ;;
+        NO | No | no | n | *)
+            CROSSPLAY_SUPPORT=false
+            break
+            ;;
+        esac
+    done
+
+    # Update and upgrade the system
+    initial_setup
+
+    # Prepare box86 and box64
+    install_box86_and_box64
 
     # Fetch and initialize steamcmd
     if [[ ! -f ~/steamcmd/steamcmd.sh ]]; then
