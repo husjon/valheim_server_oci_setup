@@ -196,6 +196,19 @@ function install_fex_emu() {
     success "Installing FEX Emu - Done"
 }
 
+function uninstall_fex_emu() {
+    if type FEXInterpreter >/dev/null; then
+        sudo apt purge -y \
+            fex-emu-armv8.0 \
+            fex-emu-binfmt32 \
+            fex-emu-binfmt64
+
+        sudo add-apt-repository -y --remove ppa:fex-emu/fex
+
+        sudo systemctl restart systemd-binfmt
+    fi
+}
+
 function install_steamcmd() {
     if [[ ! -f ~/steamcmd/steamcmd.sh ]]; then
         info "Fetching steamcmd"
