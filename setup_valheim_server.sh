@@ -347,8 +347,8 @@ function main {
     # Stop on error
     set -e
 
-    if [[ $(lsb_release -rs) != '22.04' ]]; then
-        error "The release \"$(lsb_release -ds 2>/dev/null)\" is not supported, please re-install using Ubuntu 22.04 LTS."
+    if [[ $NAME != 'Ubuntu' ]] || [[ $VERSION_ID != '22.04' ]]; then
+        error "The release \"$PRETTY_NAME\" is not supported, please re-install using Ubuntu 22.04 LTS."
         echo "See https://github.com/husjon/valheim_server_oci_setup?tab=readme-ov-file#ubuntu-version for more information"
         echo
         exit 1
