@@ -137,6 +137,26 @@ function install_box86_and_box64() {
     fi
 }
 
+function install_fex_emu() {
+    info "Installing FEX Emu"
+
+    sudo add-apt-repository -y ppa:fex-emu/fex
+    sudo apt update
+
+    sudo apt install -y \
+        fex-emu-armv8.0 \
+        fex-emu-binfmt32 \
+        fex-emu-binfmt64
+
+    notify "Creating RootFS, this might take a while"
+    FEXRootFSFetcher \
+        --assume-yes \
+        --extract
+    success "Creating RootFS - Done"
+
+    success "Installing FEX Emu - Done"
+}
+
 function install_steamcmd() {
     if [[ ! -f ~/steamcmd/steamcmd.sh ]]; then
         info "Fetching steamcmd"
