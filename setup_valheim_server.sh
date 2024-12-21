@@ -148,11 +148,14 @@ function install_fex_emu() {
         fex-emu-binfmt32 \
         fex-emu-binfmt64
 
-    notify "Creating RootFS, this might take a while"
-    FEXRootFSFetcher \
-        --assume-yes \
-        --extract
-    success "Creating RootFS - Done"
+    if [[ ! -d ~/.fex-emu/RootFS/${NAME}_${VERSION_ID/\./_} ]]; then
+        notify "Creating RootFS, this might take a while"
+        FEXRootFSFetcher \
+            --force-ui=tty \
+            --assume-yes \
+            --extract
+        success "Creating RootFS - Done"
+    fi
 
     success "Installing FEX Emu - Done"
 }
