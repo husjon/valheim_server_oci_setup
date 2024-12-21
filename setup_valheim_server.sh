@@ -479,8 +479,12 @@ function main {
     # Update and upgrade the system
     initial_setup
 
-    # Prepare box86 and box64
-    install_box86_and_box64
+    # Prepare x86_64 emulation
+    if [[ -n $USE_FEX ]]; then
+        install_fex_emu
+    else
+        install_box86_and_box64
+    fi
 
     # Fetch and initialize steamcmd
     install_steamcmd
