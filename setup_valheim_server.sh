@@ -187,7 +187,9 @@ function update_firewall() {
     )
     FIREWALL_RULES_ADDED=false
     for RULE in "${RULES[@]}"; do
+        # shellcheck disable=SC2086 # We need the variable to be split
         if ! sudo iptables -C ${RULE} 2>/dev/null; then
+            # shellcheck disable=SC2086 # We need the variable to be split
             sudo iptables -I ${RULE}
             FIREWALL_RULES_ADDED=true
         fi
