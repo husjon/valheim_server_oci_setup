@@ -80,6 +80,8 @@ function initial_setup() {
 }
 
 function install_box86_and_box64() {
+    uninstall_fex_emu
+
     info "Installing required packages"
     sudo apt -y install \
         build-essential \
@@ -198,6 +200,7 @@ function install_fex_emu() {
 
 function uninstall_fex_emu() {
     if type FEXInterpreter >/dev/null; then
+        notify "Uninstalling FEX"
         sudo apt purge -y \
             fex-emu-armv8.0 \
             fex-emu-binfmt32 \
@@ -206,6 +209,7 @@ function uninstall_fex_emu() {
         sudo add-apt-repository -y --remove ppa:fex-emu/fex
 
         sudo systemctl restart systemd-binfmt
+        success "Uninstalling FEX - Done"
     fi
 }
 
