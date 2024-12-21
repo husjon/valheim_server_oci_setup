@@ -172,6 +172,8 @@ function uninstall_box86_and_box64() {
 }
 
 function install_fex_emu() {
+    uninstall_box86_and_box64
+
     info "Installing FEX Emu"
 
     sudo add-apt-repository -y ppa:fex-emu/fex
