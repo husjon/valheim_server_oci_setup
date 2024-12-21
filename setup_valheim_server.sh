@@ -72,6 +72,11 @@ function initial_setup() {
         warn "Rebooting..."
         sudo reboot
     fi
+
+    info "Installing packages"
+    sudo apt -y install \
+        software-properties-common
+    success "Installing packages - Done"
 }
 
 function install_box86_and_box64() {
