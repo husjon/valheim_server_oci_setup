@@ -12,6 +12,10 @@ function info { echo -en "\n\n${BOLD}[ ] $* ${CLEAR}\n"; }
 function error { echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
 function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
 
+# Gives us information about the underlying OS using systemd
+# shellcheck source=/dev/null
+source /etc/os-release
+
 function perform_self_update {
     if [[ -n $NO_SELF_UPDATE ]]; then
         notify "Skipping self-update"
