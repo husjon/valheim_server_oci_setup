@@ -137,6 +137,40 @@ function install_box86_and_box64() {
     fi
 }
 
+function uninstall_box86_and_box64() {
+    if ! type box86 >/dev/null && ! type box64 >/dev/null; then
+        return
+    fi
+
+    sudo apt -y purge \
+        build-essential \
+        cmake \
+        gcc-arm-linux-gnueabihf \
+        git \
+        libc6:armhf \
+        libncurses6 \
+        libstdc++6 \
+        libpulse0
+
+    if type box86 >/dev/null; then
+        notify "Uninstalling Box86"
+        pushd ~/box86/build
+        sudo make uninstall
+        popd
+        success "Uninstalling Box86 - Done"
+    fi
+
+    if type box64 >/dev/null; then
+        notify "Uninstalling Box64"
+        pushd ~/box64/build
+        sudo make uninstall
+        popd
+        success "Uninstalling Box64 - Done"
+    fi
+
+    sudo systemctl restart systemd-binfmt
+}
+
 function install_fex_emu() {
     info "Installing FEX Emu"
 
