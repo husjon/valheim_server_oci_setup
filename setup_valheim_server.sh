@@ -140,10 +140,6 @@ function install_box86_and_box64() {
 }
 
 function uninstall_box86_and_box64() {
-    if ! type box86 >/dev/null && ! type box64 >/dev/null; then
-        return
-    fi
-
     if type box86 >/dev/null; then
         notify "Uninstalling Box86"
         pushd ~/box86/build
