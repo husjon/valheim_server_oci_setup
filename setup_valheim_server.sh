@@ -291,6 +291,9 @@ function install_valheim_server_helper() {
 }
 
 function install_systemd_service() {
+    info "Setting up Systemd Service"
+    mkdir -p ~/.config/systemd/user/
+
     [[ $CROSSPLAY_SUPPORT == true ]] && CROSSPLAY="-crossplay"
 
     cat <<-EOF >~/.config/systemd/user/valheim_server.service
@@ -324,6 +327,13 @@ function install_systemd_service() {
 		[Install]
 		WantedBy=default.target
 	EOF
+
+    # Reload Systemd
+    systemctl --user daemon-reload
+
+    # Enable Valheim Systemd service allowing it to start automatically on boot
+    systemctl --user enable valheim_server.service
+    success "Setting up Systemd Service - Done"
 }
 
 function install_readmefile() {
@@ -438,21 +448,10 @@ function main {
     install_valheim_server_helper
 
     # Set up the Systemd Service
-    info "Setting up Systemd Service"
-    mkdir -p ~/.config/systemd/user/
-
-    # Add servicefile
     install_systemd_service
 
     # Enable Lingering Systemd user sessions
     loginctl enable-linger
-
-    # Reload Systemd
-    systemctl --user daemon-reload
-
-    # Enable Valheim Systemd service allowing it to start automatically on boot
-    systemctl --user enable valheim_server.service
-    success "Setting up Systemd Service - Done"
 
     # Create Readme.md file in home directory
     install_readmefile
