@@ -61,7 +61,10 @@ function initial_setup() {
         info "First time setup"
         info "Adding Architecture"
         sudo apt -y update
-        sudo dpkg --add-architecture armhf
+
+        if uname -p | grep "aarch64" >/dev/null; then
+            sudo dpkg --add-architecture armhf
+        fi
 
         info "Updating and upgrading the OS"
         sudo apt -y update
