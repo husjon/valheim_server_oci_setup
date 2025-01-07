@@ -364,7 +364,7 @@ function install_readmefile() {
 		valheim_server stop
 
 		## Updating the server
-		valheim_server upgrade
+		valheim_server update
 
 
 		# Enable / Disable crossplay
