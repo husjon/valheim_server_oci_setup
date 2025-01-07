@@ -164,6 +164,11 @@ function install_steamcmd() {
 }
 
 function install_valheim_dedicated_server() {
+    sudo apt install -y \
+        libatomic1 \
+        libpulse-dev \
+        libpulse0
+
     if [[ ! -f ~/valheim_server/start_server.sh ]]; then
         info "Installing Valheim Dedicated Server"
         cd ~/steamcmd
