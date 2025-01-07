@@ -61,7 +61,10 @@ function initial_setup() {
         info "First time setup"
         info "Adding Architecture"
         sudo apt -y update
-        sudo dpkg --add-architecture armhf
+
+        if uname -p | grep "aarch64" >/dev/null; then
+            sudo dpkg --add-architecture armhf
+        fi
 
         info "Updating and upgrading the OS"
         sudo apt -y update
@@ -201,6 +204,12 @@ function uninstall_fex_emu() {
 
 function install_steamcmd() {
     if [[ ! -f ~/steamcmd/steamcmd.sh ]]; then
+        if uname -p | grep "x86_64" >/dev/null; then
+            dpkg --add-architecture i386
+            apt-get update
+            apt-get install lib32gcc-s1
+        fi
+
         info "Fetching steamcmd"
         mkdir -p ~/steamcmd
         cd ~/steamcmd
@@ -217,6 +226,11 @@ function install_steamcmd() {
 }
 
 function install_valheim_dedicated_server() {
+    sudo apt install -y \
+        libatomic1 \
+        libpulse-dev \
+        libpulse0
+
     if [[ ! -f ~/valheim_server/start_server.sh ]]; then
         info "Installing Valheim Dedicated Server"
         cd ~/steamcmd
@@ -412,7 +426,7 @@ function install_readmefile() {
 		valheim_server stop
 
 		## Updating the server
-		valheim_server upgrade
+		valheim_server update
 
 
 		# Enable / Disable crossplay
