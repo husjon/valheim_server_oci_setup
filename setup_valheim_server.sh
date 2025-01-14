@@ -16,6 +16,8 @@ function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
 # shellcheck source=/dev/null
 source /etc/os-release
 
+set -e
+
 function perform_self_update {
     if [[ -n $NO_SELF_UPDATE ]]; then
         notify "Skipping self-update"
