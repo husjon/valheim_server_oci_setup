@@ -85,6 +85,8 @@ function initial_setup() {
 }
 
 function install_box86_and_box64() {
+    uninstall_fex_emu
+
     info "Installing required packages"
     sudo apt -y install \
         build-essential \
@@ -139,6 +141,66 @@ function install_box86_and_box64() {
 				BOX64_DYNAREC_STRONGMEM=3
 			EOF
         fi
+    fi
+}
+
+function uninstall_box86_and_box64() {
+    if type box86 >/dev/null; then
+        notify "Uninstalling Box86"
+        pushd ~/box86/build
+        sudo make uninstall
+        popd
+        success "Uninstalling Box86 - Done"
+    fi
+
+    if type box64 >/dev/null; then
+        notify "Uninstalling Box64"
+        pushd ~/box64/build
+        sudo make uninstall
+        popd
+        success "Uninstalling Box64 - Done"
+    fi
+
+    sudo systemctl restart systemd-binfmt
+}
+
+function install_fex_emu() {
+    uninstall_box86_and_box64
+
+    info "Installing FEX Emu"
+
+    sudo add-apt-repository -y ppa:fex-emu/fex
+    sudo apt update
+
+    sudo apt install -y \
+        fex-emu-armv8.0 \
+        fex-emu-binfmt32 \
+        fex-emu-binfmt64
+
+    if [[ ! -d ~/.fex-emu/RootFS/${NAME}_${VERSION_ID/\./_} ]]; then
+        notify "Creating RootFS, this might take a while"
+        FEXRootFSFetcher \
+            --force-ui=tty \
+            --assume-yes \
+            --extract
+        success "Creating RootFS - Done"
+    fi
+
+    success "Installing FEX Emu - Done"
+}
+
+function uninstall_fex_emu() {
+    if type FEXInterpreter >/dev/null; then
+        notify "Uninstalling FEX"
+        sudo apt purge -y \
+            fex-emu-armv8.0 \
+            fex-emu-binfmt32 \
+            fex-emu-binfmt64
+
+        sudo add-apt-repository -y --remove ppa:fex-emu/fex
+
+        sudo systemctl restart systemd-binfmt
+        success "Uninstalling FEX - Done"
     fi
 }
 
@@ -429,8 +491,12 @@ function main {
     # Update and upgrade the system
     initial_setup
 
-    # Prepare box86 and box64
-    install_box86_and_box64
+    # Prepare x86_64 emulation
+    if [[ -n $USE_FEX ]]; then
+        install_fex_emu
+    else
+        install_box86_and_box64
+    fi
 
     # Fetch and initialize steamcmd
     install_steamcmd
