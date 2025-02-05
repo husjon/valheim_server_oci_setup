@@ -442,11 +442,13 @@ function main {
     # Stop on error
     set -e
 
-    if [[ $NAME != 'Ubuntu' ]] || [[ $VERSION_ID != '22.04' ]]; then
-        error "The release \"$PRETTY_NAME\" is not supported, please re-install using Ubuntu 22.04 LTS."
-        echo "See https://github.com/husjon/valheim_server_oci_setup?tab=readme-ov-file#ubuntu-version for more information"
-        echo
-        exit 1
+    if [[ $USE_FEX != true ]]; then
+        if [[ $NAME != 'Ubuntu' ]] || [[ $VERSION_ID != '22.04' ]]; then
+            error "The release \"$PRETTY_NAME\" is not supported, please re-install using Ubuntu 22.04 LTS."
+            echo "See https://github.com/husjon/valheim_server_oci_setup?tab=readme-ov-file#ubuntu-version for more information"
+            echo
+            exit 1
+        fi
     fi
 
     cd
