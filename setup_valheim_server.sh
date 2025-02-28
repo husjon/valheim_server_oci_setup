@@ -20,6 +20,7 @@ set -e
 
 # Environment variables / Overridable options
 CROSSPLAY_SUPPORT=${CROSSPLAY_SUPPORT:-false} # Enables crossplay (Note: this is highly experimental at best)
+HEADLESS_INSTALL=${HEADLESS_INSTALL:-false}   # Enables install without user input (also disables reboot)
 
 function perform_self_update {
     if [[ -n $NO_SELF_UPDATE ]]; then
@@ -77,8 +78,10 @@ function initial_setup() {
         touch ~/.cache/valheim_server_setup
         success "Updating and upgrading the OS - Done"
 
-        warn "Rebooting..."
-        sudo reboot
+        if [[ ${HEADLESS_INSTALL} != "true" ]]; then
+            warn "Rebooting..."
+            sudo reboot
+        fi
     fi
 
     info "Installing packages"
@@ -456,23 +459,25 @@ function main {
 
     cd
 
-    while :; do
-        echo "This script will install the Valheim Dedicated server "
-        echo -n "Are you sure? [yes/no]  "
+    if [[ ${HEADLESS_INSTALL} != "true" ]]; then
+        while :; do
+            echo "This script will install the Valheim Dedicated server "
+            echo -n "Are you sure? [yes/no]  "
 
-        read -r answer
+            read -r answer
 
-        case $answer in
-        YES | Yes | yes | y)
-            break
-            ;;
-        NO | No | no | n)
-            echo Aborting
-            exit
-            ;;
-        esac
-    done
-    echo
+            case $answer in
+            YES | Yes | yes | y)
+                break
+                ;;
+            NO | No | no | n)
+                echo Aborting
+                exit
+                ;;
+            esac
+        done
+        echo
+    fi
 
     # Update and upgrade the system
     initial_setup
