@@ -18,6 +18,9 @@ source /etc/os-release
 
 set -e
 
+# Environment variables / Overridable options
+CROSSPLAY_SUPPORT=${CROSSPLAY_SUPPORT:-false} # Enables crossplay (Note: this is highly experimental at best)
+
 function perform_self_update {
     if [[ -n $NO_SELF_UPDATE ]]; then
         notify "Skipping self-update"
@@ -470,25 +473,6 @@ function main {
         esac
     done
     echo
-
-    while :; do
-        echo "Should this server use crossplay?"
-        echo "Note: this is currenly highly experimental"
-        echo -n "[yes/no] (default: no)  "
-
-        read -r answer
-
-        case $answer in
-        YES | Yes | yes | y)
-            CROSSPLAY_SUPPORT=true
-            break
-            ;;
-        NO | No | no | n | *)
-            CROSSPLAY_SUPPORT=false
-            break
-            ;;
-        esac
-    done
 
     # Update and upgrade the system
     initial_setup
