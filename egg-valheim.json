@@ -1,0 +1,93 @@
+{
+  "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "exported_at": "2025-03-01T14:06:46+00:00",
+  "name": "Valheim Dedicated Server",
+  "author": "https://github.com/husjon",
+  "description": null,
+  "features": null,
+  "docker_images": {
+    "ghcr.io\/parkervcp\/yolks:ubuntu": "ghcr.io\/parkervcp\/yolks:ubuntu"
+  },
+  "file_denylist": [],
+  "startup": "SteamAppId=892970 .\/valheim_server\/valheim_server.x86_64 -nographics -batchmode -port \"{{PORT}}\" -public \"{{PUBLIC}}\" -name \"{{SERVER_NAME}}\" -world \"{{WORLD_NAME}}\" -password \"{{PASSWORD}}\" -savedir \"\/home\/container\/valheim_data\"",
+  "config": {
+    "files": "{}",
+    "startup": "{\r\n    \"done\": \"Game server connected\"\r\n}",
+    "logs": "{}",
+    "stop": "^C"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!\/bin\/bash\r\n# Sets up a Valheim Server in Pterodactyl\r\n# Using the installer from https:\/\/github.com\/husjon\/valheim_server_oci_setup\r\n\r\nset -x\r\n\r\nexport DEBIAN_FRONTEND=noninteractive\r\napt update &&\r\n    apt -y install \\\r\n        curl \\\r\n        rsync \\\r\n        sudo \\\r\n        tzdata\r\n\r\n# Intermediary shell script to be run as the `ubuntu` user with a few environment variables set\r\ncat <<-'EOF' | tee \/home\/ubuntu\/headless_install.sh\r\n#!\/usr\/bin\/env bash\r\n\r\nexport HEADLESS_INSTALL=true\r\nexport USE_FEX=true\r\nexport NO_SELF_UPDATE=true\r\nexport DEBIAN_FRONTEND=noninteractive\r\n\r\ncd ~\/ # start from the home directory\r\n\r\ncurl -sSL \\\r\n    https:\/\/raw.githubusercontent.com\/husjon\/valheim_server_oci_setup\/refs\/heads\/pterodactyl-egg_file\/setup_valheim_server.sh \\\r\n    -o .\/setup_valheim_server.sh\r\n\r\nbash .\/setup_valheim_server.sh\r\nEOF\r\n\r\n# Give ubuntu sudo access without providing password during installation\r\necho 'ubuntu    ALL=(ALL) NOPASSWD: ALL' >\/etc\/sudoers.d\/ubuntu-setup_nopass\r\n\r\n# Run the headless install script as the `ubuntu` user\r\nsu - ubuntu -s \/bin\/bash -c \"bash \/home\/ubuntu\/headless_install.sh\"\r\n\r\n# Moves the server files so that they are available to the runner container\r\nrsync -av \/home\/ubuntu\/valheim_server\/ \/mnt\/server\/",
+      "container": "ubuntu",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": [
+    {
+      "name": "Server name",
+      "description": "",
+      "env_variable": "SERVER_NAME",
+      "default_value": "My Server",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "required|string|max:20",
+      "field_type": "text"
+    },
+    {
+      "name": "World name",
+      "description": "",
+      "env_variable": "WORLD_NAME",
+      "default_value": "My World",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "required|string|max:20",
+      "field_type": "text"
+    },
+    {
+      "name": "Password",
+      "description": "",
+      "env_variable": "PASSWORD",
+      "default_value": "",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "required|string|max:20|min:8",
+      "field_type": "text"
+    },
+    {
+      "name": "Server port",
+      "description": "",
+      "env_variable": "PORT",
+      "default_value": "2456",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "required|integer",
+      "field_type": "text"
+    },
+    {
+      "name": "Public",
+      "description": "",
+      "env_variable": "PUBLIC",
+      "default_value": "0",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "required|boolean",
+      "field_type": "text"
+    },
+    {
+      "name": "LD_LIBRARY_PATH",
+      "description": "Used to tell Valheim where the dynamic library files are located",
+      "env_variable": "LD_LIBRARY_PATH",
+      "default_value": ".\/valheim_server\/linux64:$LD_LIBRARY_PATH",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "required",
+      "field_type": "text"
+    }
+  ]
+}
+
