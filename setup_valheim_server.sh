@@ -12,6 +12,8 @@ function info { echo -en "\n\n${BOLD}[ ] $* ${CLEAR}\n"; }
 function error { echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
 function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
 
+FIRST_TIME_INSTALL=true
+
 # Gives us information about the underlying OS using systemd
 # shellcheck source=/dev/null
 source /etc/os-release
@@ -86,6 +88,8 @@ function initial_setup() {
             warn "Rebooting..."
             sudo reboot
         fi
+    else
+        FIRST_TIME_INSTALL=false
     fi
 
     info "Installing packages"
@@ -155,6 +159,8 @@ function install_box86_and_box64() {
 }
 
 function uninstall_box86_and_box64() {
+    [[ $FIRST_TIME_INSTALL == true ]] && return
+
     if type box86 >/dev/null; then
         notify "Uninstalling Box86"
         pushd ~/box86/build
@@ -200,6 +206,8 @@ function install_fex_emu() {
 }
 
 function uninstall_fex_emu() {
+    [[ $FIRST_TIME_INSTALL == true ]] && return
+
     if type FEXInterpreter >/dev/null; then
         notify "Uninstalling FEX"
         sudo apt purge -y \
