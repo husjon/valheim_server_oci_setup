@@ -477,11 +477,14 @@ function main {
     # Update and upgrade the system
     initial_setup
 
-    # Prepare x86_64 emulation
-    if [[ -n $USE_FEX ]]; then
-        install_fex_emu
-    else
-        install_box86_and_box64
+    # Only install Box or FEX if on ARM
+    if uname -p | grep "aarch64" >/dev/null; then
+        # Prepare x86_64 emulation
+        if [[ -n $USE_FEX ]]; then
+            install_fex_emu
+        else
+            install_box86_and_box64
+        fi
     fi
 
     # Fetch and initialize steamcmd
