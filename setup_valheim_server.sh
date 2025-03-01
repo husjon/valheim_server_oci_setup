@@ -211,8 +211,8 @@ function install_steamcmd() {
     if [[ ! -f ~/steamcmd/steamcmd.sh ]]; then
         if uname -p | grep "x86_64" >/dev/null; then
             sudo dpkg --add-architecture i386
-            sudo apt-get update
-            sudo apt-get install lib32gcc-s1
+            sudo apt update
+            sudo apt install -y lib32gcc-s1
         fi
 
         info "Fetching steamcmd"
