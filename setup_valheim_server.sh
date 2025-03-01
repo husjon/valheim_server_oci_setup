@@ -22,6 +22,10 @@ set -e
 CROSSPLAY_SUPPORT=${CROSSPLAY_SUPPORT:-false} # Enables crossplay (Note: this is highly experimental at best)
 HEADLESS_INSTALL=${HEADLESS_INSTALL:-false}   # Enables install without user input (also disables reboot)
 
+if [[ ${HEADLESS_INSTALL} == "true" ]]; then
+    export DEBIAN_FRONTEND=noninteractive
+fi
+
 function perform_self_update {
     if [[ -n $NO_SELF_UPDATE ]]; then
         notify "Skipping self-update"
