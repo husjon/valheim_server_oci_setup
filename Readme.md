@@ -224,16 +224,26 @@ Once done, you must start the server using `valheim_server start`
 # Crossplay (Console / Game Pass)
 **Note**: Crossplay on ARM architecture is currently experimental (thanks to **@bitdo1**).  
 
-During setup you will be asked if crossplay should be enabled or disabled.  
+~~During setup you will be asked if crossplay should be enabled or disabled.~~  
+The question for enabling crossplay has been disabled due to instability.  
+If however you'd like to try it out, the following command can be run:
 
-If you'd like to enable / disable this after the first setup, you can change it by rerunning the setup script.
-You will need to restart the server for this to take effect using `valheim_server restart `  
+```sh
+CROSSPLAY_SUPPORT=true bash ./setup_valheim_server.sh
+```
+This will configure the server to allow for crossplay support.  
+Do keep in mind that this is experimental and might cause the server to crash.  
+If this is the case, re-running the install script as described in [Installing the Valheim Dedicated Server](#installing-the-valheim-dedicated-server) will restore it.
+
+
+~~If you'd like to enable / disable this after the first setup, you can change it by rerunning the setup script.~~
+~~You will need to restart the server for this to take effect using `valheim_server restart `~~
 
 After crossplay has been enabled, the join procedure is the same as normal using `IP:port`, however you can now also join by using a 6 digit code which can be found in the logs after the server has started (using the `valheim_server logs-live` command).  
 Example log message:  
 `Session "My Valheim server" with join code 295265 and IP 12.34.56.78:2456 is active with 0 player(s)`
 
-**Note:**  Do keep in mind that the join code will change every time the server is restarted!
+**Note:** Do keep in mind that the join code will change every time the server is restarted!
 
 
 
