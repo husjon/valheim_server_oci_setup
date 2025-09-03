@@ -107,27 +107,44 @@ Verify that we have a set of SSH key pairs
 
 ## Creating the VM instance
 
-1. From the Getting Started dashboard, scroll down a bit and click the **Create a VM instance**
-2. On the right hand side of **Image and shape** click **Edit**
-   1. Click **Change image** and choose a **Canonical Ubuntu 22.04 Minimal aarch64** and confirm with the **Select image** button.  
-      **Note:** make sure you select **aarch64** which is aimed at ARM server
-   2. Click **Change shape** and set the following:
-      - Instance type: `Virtual machine`
-      - Shape series: `Ampere`
-      - Shape: `VM.Standard.A1.Flex`
-      - OCPUs: `4`
-      - Memory: `24GB`
-3. On the right hand side of **Networking** click **Edit**
-   1. Select **Create new virtual cloud network** and leave the values as is.
-4. On the right hand side of **Add SSH keys** click **Edit**
-   - If you're f.ex on Linux or Mac you can find your SSH keys under `~/.ssh/id_rsa.pub`
-     In this case you can select **Upload public key files (.pub)** then navigate to `~/.ssh/id_rsa.pub`
-   - For Windows, the SSH public key we copied in [Pre-requisite for Windows](###-Pre-requisite-for-Windows) can be pasted in by under **Paste public keys**
-5. Click **Create**.  
-   **Note**: If you get a warning about Out of Capacity, scroll up to the **Placement** section and try another Domain (AD 1, AD 2 or AD 3), and try again.  
-   This will take a couple of minutes while the instance is being provisioned / set up.  
-   While we wait for it we'll go back to the dashboard and set up the networking.  
-   Click on the **ORACLE Cloud** header or [click here](https://cloud.oracle.com/) to go back to the Getting started page.
+1. From the [Home dashboard](https://cloud.oracle.com/home), scroll down a bit and click the **Create a VM instance**
+2. Create compute instance
+   1. Basic information
+      1. Give the instance a name, for example `Valheim Server`
+      2. Leave compartment default unless you already have another compartment set up that you'd like to use.
+      3. Leave placement default.  
+         **Note:** you might need to change it if it complains about placement allocation during deployment.
+      4. Under **Image** click **Change image** and choose a **Canonical Ubuntu 22.04 Minimal aarch64** and confirm with the **Select image** button.  
+         **Note:** make sure you select **aarch64** which is aimed at ARM server
+      5. Under **Shape** click **Change shape** and set the following:
+         - Instance type: `Virtual machine`
+         - Shape series: `Ampere`
+         - Shape: `VM.Standard.A1.Flex`
+      6. Expand the little triangle next to the shape name to set the following:
+         - OCPUs: `4`
+         - Memory: `24GB`
+      7. Click **Select shape**
+      8. Click **Next**
+   2. Security
+      1. Leave everything default
+      2. Click **Next**
+   3. Networking
+      1. Select **Create new virtual cloud network** and leave the values as is.
+      2. At the bottom you'll find **Add SSH keys**
+         - For Linux and Mac you can find your SSH keys under `~/.ssh/id_rsa.pub`  
+           In this case you can select **Upload public key files (.pub)** then navigate to `~/.ssh/id_rsa.pub`
+         - For Windows, the SSH public key we copied in [Pre-requisite for Windows](###-Pre-requisite-for-Windows) can be pasted in by under **Paste public keys**
+      3. Click **Next**
+   4. Storage
+      1. Leave everything default
+      2. Click **Next**
+   5. Review
+      Here you'll get a final summary of what will be set up, review as needed, when ready, click **Create**.  
+      This will take a couple of minutes while the instance is being provisioned / set up.  
+      **Note**: If you get a warning about Out of Capacity, Go back to the **Placement** section under **Basic Information** and try another Domain (AD 1, AD 2 or AD 3), and try again.
+
+      While we wait for it to be provisioned we'll go back to the dashboard and set up the networking.  
+      Click on the **Cloud** header or [click here](https://cloud.oracle.com/) to go back to the Getting started page.
 
 ## Configuring the Network and firewall rules
 
