@@ -107,43 +107,59 @@ Verify that we have a set of SSH key pairs
 
 ## Creating the VM instance
 
-1. From the Getting Started dashboard, scroll down a bit and click the **Create a VM instance**
-2. On the right hand side of **Image and shape** click **Edit**
-   1. Click **Change image** and choose a **Canonical Ubuntu 22.04 Minimal aarch64** and confirm with the **Select image** button.  
-      **Note:** make sure you select **aarch64** which is aimed at ARM server
-   2. Click **Change shape** and set the following:
-      - Instance type: `Virtual machine`
-      - Shape series: `Ampere`
-      - Shape: `VM.Standard.A1.Flex`
-      - OCPUs: `4`
-      - Memory: `24GB`
-3. On the right hand side of **Networking** click **Edit**
-   1. Select **Create new virtual cloud network** and leave the values as is.
-4. On the right hand side of **Add SSH keys** click **Edit**
-   - If you're f.ex on Linux or Mac you can find your SSH keys under `~/.ssh/id_rsa.pub`
-     In this case you can select **Upload public key files (.pub)** then navigate to `~/.ssh/id_rsa.pub`
-   - For Windows, the SSH public key we copied in [Pre-requisite for Windows](###-Pre-requisite-for-Windows) can be pasted in by under **Paste public keys**
-5. Click **Create**.  
-   **Note**: If you get a warning about Out of Capacity, scroll up to the **Placement** section and try another Domain (AD 1, AD 2 or AD 3), and try again.  
-   This will take a couple of minutes while the instance is being provisioned / set up.  
-   While we wait for it we'll go back to the dashboard and set up the networking.  
-   Click on the **ORACLE Cloud** header or [click here](https://cloud.oracle.com/) to go back to the Getting started page.
+1. From the [Home dashboard](https://cloud.oracle.com/home), scroll down a bit and click the **Create a VM instance**
+2. Create compute instance
+   1. Basic information
+      1. Give the instance a name, for example `Valheim Server`
+      2. Leave compartment default unless you already have another compartment set up that you'd like to use.
+      3. Leave placement default.  
+         **Note:** you might need to change it if it complains about placement allocation during deployment.
+      4. Under **Image** click **Change image** and choose a **Canonical Ubuntu 22.04 Minimal aarch64** and confirm with the **Select image** button.  
+         **Note:** make sure you select **aarch64** which is aimed at ARM server
+      5. Under **Shape** click **Change shape** and set the following:
+         - Instance type: `Virtual machine`
+         - Shape series: `Ampere`
+         - Shape: `VM.Standard.A1.Flex`
+      6. Expand the little triangle next to the shape name to set the following:
+         - OCPUs: `4`
+         - Memory: `24GB`
+      7. Click **Select shape**
+      8. Click **Next**
+   2. Security
+      1. Leave everything default
+      2. Click **Next**
+   3. Networking
+      1. Select **Create new virtual cloud network** and leave the values as is.
+      2. At the bottom you'll find **Add SSH keys**
+         - For Linux and Mac you can find your SSH keys under `~/.ssh/id_rsa.pub`  
+           In this case you can select **Upload public key files (.pub)** then navigate to `~/.ssh/id_rsa.pub`
+         - For Windows, the SSH public key we copied in [Pre-requisite for Windows](###-Pre-requisite-for-Windows) can be pasted in by under **Paste public keys**
+      3. Click **Next**
+   4. Storage
+      1. Leave everything default
+      2. Click **Next**
+   5. Review
+      Here you'll get a final summary of what will be set up, review as needed, when ready, click **Create**.  
+      This will take a couple of minutes while the instance is being provisioned / set up.  
+      **Note**: If you get a warning about Out of Capacity, Go back to the **Placement** section under **Basic Information** and try another Domain (AD 1, AD 2 or AD 3), and try again.
+
+      While we wait for it to be provisioned we'll go back to the dashboard and set up the networking.  
+      Click on the **Cloud** header or [click here](https://cloud.oracle.com/) to go back to the Getting started page.
 
 ## Configuring the Network and firewall rules
 
-1. At the top of the Getting started page, click on **Dashboard**
-2. Under **Resource explorer**, click **Virtual Cloud Networks**, then click the network (f.ex `vcn-20221120-1500`)
-3. On the left hand side, click on **Security Lists**, then the `Default Security List for NETWORKNAME`
-4. We will be creating a rule so that we can connect to the server from Valheim.
+1. At the top of the [Home dashboard](https://cloud.oracle.com/home), click on **Hamburger menu** in the top left corner
+2. Under **Networking**, click **Virtual Cloud Networks**, then click the network (f.ex `vcn-20221120-1500`)
+3. At the top under the network name, click on **Security**, then the `Default Security List for NETWORKNAME`
+4. We will be creating a rule so that we can connect to the server from Valheim, click on **Security rules**.
    1. Under **Ingress Rules**, click **Add Ingress Rules**:
       - Source Type: `CIDR`
       - Source CIDR: `0.0.0.0/0`
       - IP Protocol: `UDP`
-      - Source Port Range: `All`
+      - Source Port Range: `All` or leave blank
       - Destination Port Range `2456-2459`
-5. Click on the **ORACLE Cloud** header or [click here](https://cloud.oracle.com/) to go back to the Getting started page.
-6. Navigate back to the Dashboard, under the **Resource explorer** click on **Instances** then the instance (f.ex `instance-20221120-1503`)
-7. On the right hand side you'll see **Instance access**, click **Copy** to the right of **Public IP address**, we need this in the next step.
+5. Click on the **Hamburger menu** and navigate to **Compute**, then **Instances**
+6. In the table next to the name of your instance, you'll see the Public IP. Copy this as we will need this in the next step.
 
 # Connecting to the VM Instance
 
