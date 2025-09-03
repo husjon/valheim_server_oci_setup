@@ -148,19 +148,18 @@ Verify that we have a set of SSH key pairs
 
 ## Configuring the Network and firewall rules
 
-1. At the top of the Getting started page, click on **Dashboard**
-2. Under **Resource explorer**, click **Virtual Cloud Networks**, then click the network (f.ex `vcn-20221120-1500`)
-3. On the left hand side, click on **Security Lists**, then the `Default Security List for NETWORKNAME`
-4. We will be creating a rule so that we can connect to the server from Valheim.
+1. At the top of the [Home dashboard](https://cloud.oracle.com/home), click on **Hamburger menu** in the top left corner
+2. Under **Networking**, click **Virtual Cloud Networks**, then click the network (f.ex `vcn-20221120-1500`)
+3. At the top under the network name, click on **Security**, then the `Default Security List for NETWORKNAME`
+4. We will be creating a rule so that we can connect to the server from Valheim, click on **Security rules**.
    1. Under **Ingress Rules**, click **Add Ingress Rules**:
       - Source Type: `CIDR`
       - Source CIDR: `0.0.0.0/0`
       - IP Protocol: `UDP`
-      - Source Port Range: `All`
+      - Source Port Range: `All` or leave blank
       - Destination Port Range `2456-2459`
-5. Click on the **ORACLE Cloud** header or [click here](https://cloud.oracle.com/) to go back to the Getting started page.
-6. Navigate back to the Dashboard, under the **Resource explorer** click on **Instances** then the instance (f.ex `instance-20221120-1503`)
-7. On the right hand side you'll see **Instance access**, click **Copy** to the right of **Public IP address**, we need this in the next step.
+5. Click on the **Hamburger menu** and navigate to **Compute**, then **Instances**
+6. In the table next to the name of your instance, you'll see the Public IP. Copy this as we will need this in the next step.
 
 # Connecting to the VM Instance
 
