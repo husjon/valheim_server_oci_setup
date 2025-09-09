@@ -445,7 +445,7 @@ function main {
     # Stop on error
     set -e
 
-    if [[ $USE_FEX != true ]]; then
+    if [[ $USE_BOX = true ]]; then
         if [[ $NAME != 'Ubuntu' ]] || [[ $VERSION_ID != '22.04' ]]; then
             error "The release \"$PRETTY_NAME\" is not supported, please re-install using Ubuntu 22.04 LTS."
             echo "See https://github.com/husjon/valheim_server_oci_setup?tab=readme-ov-file#ubuntu-version for more information"
@@ -480,10 +480,10 @@ function main {
     # Only install Box or FEX if on ARM
     if uname -p | grep "aarch64" >/dev/null; then
         # Prepare x86_64 emulation
-        if [[ -n $USE_FEX ]]; then
-            install_fex_emu
-        else
+        if [[ -n $USE_BOX ]]; then
             install_box86_and_box64
+        else
+            install_fex_emu
         fi
     fi
 
