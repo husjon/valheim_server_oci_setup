@@ -2,6 +2,7 @@
 
 - [Table of Content](#table-of-content)
 - [:warning: Disclaimer :warning:](#warning-disclaimer-warning)
+  - [Self-upgrade not working (14th Jan 2025 - 9th Sept 2025)](#self-upgrade-not-working-14th-jan-2025---9th-sept-2025)
   - [Ubuntu version](#ubuntu-version)
   - [Box64 configuration](#box64-configuration)
 - [Credit](#credit)
@@ -33,6 +34,13 @@
 - [TODOs](#todos)
 
 # :warning: Disclaimer :warning:
+
+## Self-upgrade not working (14th Jan 2025 - 9th Sept 2025)
+
+The installer self-upgrade have had a bug in it since 14th of January 2025 where I introduced halt-on-error (see commit [52f55a8f](https://github.com/husjon/valheim_server_oci_setup/commit/52f55a8f563b0c16471cc8afd70e98ec4af9058b)), due to this, the self-upgrade functionality have not worked properly.
+
+If you've used the script since, prior to today (9th of September 2025), you'll have to manually upgrade the script.
+This can be done by following the first steps in [Installing the Valheim Dedicated Server](#installing-the-valheim-dedicated-server).
 
 ## Ubuntu version
 
