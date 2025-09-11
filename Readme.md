@@ -3,6 +3,7 @@
 - [Table of Content](#table-of-content)
 - [:warning: Disclaimer :warning:](#warning-disclaimer-warning)
   - [Self-upgrade not working (14th Jan 2025 - 9th Sept 2025)](#self-upgrade-not-working-14th-jan-2025---9th-sept-2025)
+  - [Default x86_64 emulator](#default-x86_64-emulator)
   - [Ubuntu version](#ubuntu-version)
   - [Box64 configuration](#box64-configuration)
 - [Credit](#credit)
@@ -41,6 +42,13 @@ The installer self-upgrade have had a bug in it since 14th of January 2025 where
 
 If you've used the script since, prior to today (9th of September 2025), you'll have to manually upgrade the script.
 This can be done by following the first steps in [Installing the Valheim Dedicated Server](#installing-the-valheim-dedicated-server).
+
+## Default x86_64 emulator
+
+The default x86_64 emulator up until now (11th Sept 2025) has been Box86 and Box64, with the Call to Arms update for Valheim I've decided to replace Box with FEX.
+This has been considered for a while as it does seem very stable and in the future should allow for using mods.
+
+For further discussions, please do join my [Discord server](#discord).
 
 ## Ubuntu version
 
