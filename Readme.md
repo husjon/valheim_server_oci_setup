@@ -45,7 +45,7 @@ This can be done by following the first steps in [Installing the Valheim Dedicat
 ## Default x86_64 emulator
 
 The default x86_64 emulator up until now (11th Sept 2025) has been Box86 and Box64, with the Call to Arms update for Valheim I've decided to replace Box with FEX.
-This has been considered for a while as it does seem very stable and in the future should allow for using mods.
+This has been considered for a while as it does seem very stable and in the future should allow for using mods (see [Modding](#modding)).
 
 For further discussions, please do join my [Discord server](#discord).
 
@@ -278,7 +278,10 @@ Example log message:
 If this changes in the future, this section will be updated to reflect that.  
 An issue has been raised with BepInEx and can be found here [BepInEx/BepInEx#336](https://github.com/BepInEx/BepInEx/issues/336)
 
-PS: If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let me know.
+As the default emulation layer has been changed to FEX, modding should now be possible.  
+If you're feeling comfortable editing the systemd service file that is currently used, you're more than welcome to, do however keep in mind that re-running the setup script does revert these changes, unless you're using overrides.
+
+If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let us know in the [Discord server](#discord).
 
 As for a guide to install mods, here is one.  
 https://www.youtube.com/watch?v=h2t9cSFidt0
