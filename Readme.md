@@ -5,7 +5,6 @@
   - [Self-upgrade not working (14th Jan 2025 - 9th Sept 2025)](#self-upgrade-not-working-14th-jan-2025---9th-sept-2025)
   - [Default x86_64 emulator](#default-x86_64-emulator)
   - [Ubuntu version](#ubuntu-version)
-  - [Box64 configuration](#box64-configuration)
 - [Credit](#credit)
 - [Instructions](#instructions)
 - [Pre-requisite](#pre-requisite)
@@ -56,18 +55,6 @@ Currently the only supported version of Ubuntu is Ubuntu 22.04 LTS, please make 
 
 This is because changes was done in preparation to how timestamps will be handled prior to 2038.  
 This was added last minute prior to the Ubuntu 24.04LTS release cycle feature feeeze, which unfortunately impacted `armhf` which we rely on here, more information can be found at the ubuntu mailing list: https://lists.ubuntu.com/archives/ubuntu-devel-announce/2024-March/001344.html
-
-## Box64 configuration
-
-This install script has now been updated with a configuration for box64 which has been tested to work for a few weeks and by different people using this guide.  
-If you have made any changes to the `~/.box64rc` configuration file for the `[valheim_server.x86_64]` section, please remove it and run the setup script.  
-If you should experience any issues, please leave a comment.
-
-~~This script / procedure for setting up a Valheim server on ARM is currently broken as of 7th of November 2023.
-(https://www.valheimgame.com/news/patch-0-217-28/)~~
-
-~~This unfortunately also includes the rollback procedure.
-Check comments for any updates regarding this issue.~~
 
 # Credit
 
