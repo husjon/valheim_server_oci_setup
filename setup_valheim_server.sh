@@ -6,11 +6,11 @@ ORANGE=$(tput setaf 3)
 BOLD=$(tput bold)
 CLEAR=$(tput sgr0)
 
-function warn { echo -en "\n\n${BOLD}${ORANGE}[-] $* ${CLEAR}\n"; }
-function success { echo -en "${BOLD}${GREEN}[+] $* ${CLEAR}\n"; }
-function info { echo -en "\n\n${BOLD}[ ] $* ${CLEAR}\n"; }
-function error { echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
-function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
+function warn { >&2 echo -en "\n\n${BOLD}${ORANGE}[-] $* ${CLEAR}\n"; }
+function success { >&2 echo -en "${BOLD}${GREEN}[+] $* ${CLEAR}\n"; }
+function info { >&2 echo -en "\n\n${BOLD}[ ] $* ${CLEAR}\n"; }
+function error { >&2 echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
+function notify { >&2 echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
 
 # Gives us information about the underlying OS using systemd
 # shellcheck source=/dev/null
