@@ -167,16 +167,37 @@ function uninstall_box86_and_box64() {
     sudo systemctl restart systemd-binfmt
 }
 
+function determine_arm_instruction_set() {
+    # https://en.wikipedia.org/wiki/Comparison_of_ARM_processors (see: ARM part numbers)
+
+    CPU_PART=$(grep -i 'CPU part' /proc/cpuinfo | head -n 1 | grep -Eo '0x\w+')
+
+    case "$CPU_PART" in
+    0xd0c)
+        # 0xd0c=Ampere Altra / Neoverse N1
+        echo 8.2
+        ;;
+    *)
+        # use 8.4 in case we can't determine the instruction set
+        notify "Could not determine ARM instruction set, using version 8.4"
+        sleep 2
+        echo 8.4
+        ;;
+    esac
+}
+
 function install_fex_emu() {
     uninstall_box86_and_box64
 
     info "Installing FEX Emu"
 
+    ARM_INSTRUCTION_SET=${ARM_INSTRUCTION_SET:-$(determine_arm_instruction_set)}
+
     sudo add-apt-repository -y ppa:fex-emu/fex
     sudo apt update
 
     sudo apt install -y \
-        fex-emu-armv8.0 \
+        fex-emu-armv${ARM_INSTRUCTION_SET} \
         fex-emu-binfmt32 \
         fex-emu-binfmt64
 
@@ -193,10 +214,12 @@ function install_fex_emu() {
 }
 
 function uninstall_fex_emu() {
+    ARM_INSTRUCTION_SET=${ARM_INSTRUCTION_SET:-$(determine_arm_instruction_set)}
+
     if type FEXInterpreter >/dev/null; then
         notify "Uninstalling FEX"
         sudo apt purge -y \
-            fex-emu-armv8.0 \
+            fex-emu-armv${ARM_INSTRUCTION_SET} \
             fex-emu-binfmt32 \
             fex-emu-binfmt64
 
