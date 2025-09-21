@@ -44,7 +44,7 @@ This can be done by following the first steps in [Installing the Valheim Dedicat
 
 ## Default x86_64 emulator
 
-The default x86_64 emulator up until now (11th Sept 2025) has been Box86 and Box64, with the Call to Arms update for Valheim I've decided to replace Box with FEX.
+The default x86_64 emulator up until now (21th Sept 2025) has been Box86 and Box64, with the Call to Arms update for Valheim I've decided to replace Box with FEX.
 This has been considered for a while as it does seem very stable and in the future should allow for using mods (see [Modding](#modding)).  
 It is possible to switch back to using Box by setting the `USE_BOX` environment variable.
 
