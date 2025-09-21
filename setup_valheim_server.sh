@@ -6,11 +6,11 @@ ORANGE=$(tput setaf 3)
 BOLD=$(tput bold)
 CLEAR=$(tput sgr0)
 
-function warn { echo -en "\n\n${BOLD}${ORANGE}[-] $* ${CLEAR}\n"; }
-function success { echo -en "${BOLD}${GREEN}[+] $* ${CLEAR}\n"; }
-function info { echo -en "\n\n${BOLD}[ ] $* ${CLEAR}\n"; }
-function error { echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
-function notify { echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
+function warn { >&2 echo -en "\n\n${BOLD}${ORANGE}[-] $* ${CLEAR}\n"; }
+function success { >&2 echo -en "${BOLD}${GREEN}[+] $* ${CLEAR}\n"; }
+function info { >&2 echo -en "\n\n${BOLD}[ ] $* ${CLEAR}\n"; }
+function error { >&2 echo -en "${BOLD}${RED}[!] $* ${CLEAR}\n"; }
+function notify { >&2 echo -en "\n\n${BOLD}${ORANGE}[!] $* ${CLEAR}\n"; }
 
 # Gives us information about the underlying OS using systemd
 # shellcheck source=/dev/null
@@ -167,16 +167,37 @@ function uninstall_box86_and_box64() {
     sudo systemctl restart systemd-binfmt
 }
 
+function determine_arm_instruction_set() {
+    # https://en.wikipedia.org/wiki/Comparison_of_ARM_processors (see: ARM part numbers)
+
+    CPU_PART=$(grep -i 'CPU part' /proc/cpuinfo | head -n 1 | grep -Eo '0x\w+')
+
+    case "$CPU_PART" in
+    0xd0c)
+        # 0xd0c=Ampere Altra / Neoverse N1
+        echo 8.2
+        ;;
+    *)
+        # use 8.4 in case we can't determine the instruction set
+        notify "Could not determine ARM instruction set, using version 8.4"
+        sleep 2
+        echo 8.4
+        ;;
+    esac
+}
+
 function install_fex_emu() {
     uninstall_box86_and_box64
 
     info "Installing FEX Emu"
 
+    ARM_INSTRUCTION_SET=${ARM_INSTRUCTION_SET:-$(determine_arm_instruction_set)}
+
     sudo add-apt-repository -y ppa:fex-emu/fex
     sudo apt update
 
     sudo apt install -y \
-        fex-emu-armv8.0 \
+        fex-emu-armv${ARM_INSTRUCTION_SET} \
         fex-emu-binfmt32 \
         fex-emu-binfmt64
 
@@ -193,10 +214,12 @@ function install_fex_emu() {
 }
 
 function uninstall_fex_emu() {
+    ARM_INSTRUCTION_SET=${ARM_INSTRUCTION_SET:-$(determine_arm_instruction_set)}
+
     if type FEXInterpreter >/dev/null; then
         notify "Uninstalling FEX"
         sudo apt purge -y \
-            fex-emu-armv8.0 \
+            fex-emu-armv${ARM_INSTRUCTION_SET} \
             fex-emu-binfmt32 \
             fex-emu-binfmt64
 
@@ -445,7 +468,7 @@ function main {
     # Stop on error
     set -e
 
-    if [[ $USE_FEX != true ]]; then
+    if [[ $USE_BOX = true ]]; then
         if [[ $NAME != 'Ubuntu' ]] || [[ $VERSION_ID != '22.04' ]]; then
             error "The release \"$PRETTY_NAME\" is not supported, please re-install using Ubuntu 22.04 LTS."
             echo "See https://github.com/husjon/valheim_server_oci_setup?tab=readme-ov-file#ubuntu-version for more information"
@@ -480,10 +503,10 @@ function main {
     # Only install Box or FEX if on ARM
     if uname -p | grep "aarch64" >/dev/null; then
         # Prepare x86_64 emulation
-        if [[ -n $USE_FEX ]]; then
-            install_fex_emu
-        else
+        if [[ -n $USE_BOX ]]; then
             install_box86_and_box64
+        else
+            install_fex_emu
         fi
     fi
 

@@ -3,8 +3,8 @@
 - [Table of Content](#table-of-content)
 - [:warning: Disclaimer :warning:](#warning-disclaimer-warning)
   - [Self-upgrade not working (14th Jan 2025 - 9th Sept 2025)](#self-upgrade-not-working-14th-jan-2025---9th-sept-2025)
+  - [Default x86_64 emulator](#default-x86_64-emulator)
   - [Ubuntu version](#ubuntu-version)
-  - [Box64 configuration](#box64-configuration)
 - [Credit](#credit)
 - [Instructions](#instructions)
 - [Pre-requisite](#pre-requisite)
@@ -42,24 +42,20 @@ The installer self-upgrade have had a bug in it since 14th of January 2025 where
 If you've used the script since, prior to today (9th of September 2025), you'll have to manually upgrade the script.
 This can be done by following the first steps in [Installing the Valheim Dedicated Server](#installing-the-valheim-dedicated-server).
 
+## Default x86_64 emulator
+
+The default x86_64 emulator up until now (11th Sept 2025) has been Box86 and Box64, with the Call to Arms update for Valheim I've decided to replace Box with FEX.
+This has been considered for a while as it does seem very stable and in the future should allow for using mods (see [Modding](#modding)).  
+It is possible to switch back to using Box by setting the `USE_BOX` environment variable.
+
+For further discussions, please do join my [Discord server](#discord).
+
 ## Ubuntu version
 
 Currently the only supported version of Ubuntu is Ubuntu 22.04 LTS, please make sure the image **Canonical Ubuntu 22.04 Minimal aarch64** is selected during the setup procedure.
 
 This is because changes was done in preparation to how timestamps will be handled prior to 2038.  
 This was added last minute prior to the Ubuntu 24.04LTS release cycle feature feeeze, which unfortunately impacted `armhf` which we rely on here, more information can be found at the ubuntu mailing list: https://lists.ubuntu.com/archives/ubuntu-devel-announce/2024-March/001344.html
-
-## Box64 configuration
-
-This install script has now been updated with a configuration for box64 which has been tested to work for a few weeks and by different people using this guide.  
-If you have made any changes to the `~/.box64rc` configuration file for the `[valheim_server.x86_64]` section, please remove it and run the setup script.  
-If you should experience any issues, please leave a comment.
-
-~~This script / procedure for setting up a Valheim server on ARM is currently broken as of 7th of November 2023.
-(https://www.valheimgame.com/news/patch-0-217-28/)~~
-
-~~This unfortunately also includes the rollback procedure.
-Check comments for any updates regarding this issue.~~
 
 # Credit
 
@@ -283,7 +279,10 @@ Example log message:
 If this changes in the future, this section will be updated to reflect that.  
 An issue has been raised with BepInEx and can be found here [BepInEx/BepInEx#336](https://github.com/BepInEx/BepInEx/issues/336)
 
-PS: If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let me know.
+As the default emulation layer has been changed to FEX, modding should now be possible.  
+If you're feeling comfortable editing the systemd service file that is currently used, you're more than welcome to, do however keep in mind that re-running the setup script does revert these changes, unless you're using overrides.
+
+If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let us know in the [Discord server](#discord).
 
 As for a guide to install mods, here is one.  
 https://www.youtube.com/watch?v=h2t9cSFidt0
