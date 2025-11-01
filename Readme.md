@@ -232,6 +232,11 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 3. When done, Press `Ctrl+X`, then `y` and finally `Enter`.  
    **Note**: Mac users might need to use the `Cmd` button instead of `Ctrl`
 
+For further customization, you may want to change the `~/valheim_server/start_server.custom.sh` file.
+Here you may add / remove flags and environment variables used by the server, for example when adding mods.
+
+This file is only created if it does not exist, so re-running the setup script will leave it as it, however if there are issues you may remove the `~/valheim_server/start_server.custom.sh` file and re-run the setup script.
+
 # Starting the Valheim Server
 
 To start the server, run the command `valheim_server start`  
@@ -252,20 +257,11 @@ Once done, you must start the server using `valheim_server start`
 
 **Note**: Crossplay on ARM architecture is currently experimental (thanks to **@bitdo1**).
 
-~~During setup you will be asked if crossplay should be enabled or disabled.~~  
-The question for enabling crossplay has been disabled due to instability.  
-If however you'd like to try it out, the following command can be run:
-
-```sh
-CROSSPLAY_SUPPORT=true bash ./setup_valheim_server.sh
-```
+If you'd like to try it out, you can add the `-crossplay` flag to `~/valheim_server/start_server.custom.sh`.
 
 This will configure the server to allow for crossplay support.  
 Do keep in mind that this is experimental and might cause the server to crash.  
-If this is the case, re-running the install script as described in [Installing the Valheim Dedicated Server](#installing-the-valheim-dedicated-server) will restore it.
-
-~~If you'd like to enable / disable this after the first setup, you can change it by rerunning the setup script.~~
-~~You will need to restart the server for this to take effect using `valheim_server restart `~~
+If this is the case, removing the flag will restore functionality.
 
 After crossplay has been enabled, the join procedure is the same as normal using `IP:port`, however you can now also join by using a 6 digit code which can be found in the logs after the server has started (using the `valheim_server logs-live` command).  
 Example log message:  
@@ -280,7 +276,8 @@ If this changes in the future, this section will be updated to reflect that.
 An issue has been raised with BepInEx and can be found here [BepInEx/BepInEx#336](https://github.com/BepInEx/BepInEx/issues/336)
 
 As the default emulation layer has been changed to FEX, modding should now be possible.  
-If you're feeling comfortable editing the systemd service file that is currently used, you're more than welcome to, do however keep in mind that re-running the setup script does revert these changes, unless you're using overrides.
+To allow mods to be run, you may now edit `~/valheim_server/start_server.custom.sh`.
+As described in [Configuring the Valheim Server](#configuring-the-valheim-server), here you can adjust the server parameters and environment variables as you need.
 
 If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let us know in the [Discord server](#discord).
 
