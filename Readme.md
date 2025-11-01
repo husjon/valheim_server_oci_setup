@@ -285,7 +285,8 @@ If this changes in the future, this section will be updated to reflect that.
 An issue has been raised with BepInEx and can be found here [BepInEx/BepInEx#336](https://github.com/BepInEx/BepInEx/issues/336)
 
 As the default emulation layer has been changed to FEX, modding should now be possible.  
-If you're feeling comfortable editing the systemd service file that is currently used, you're more than welcome to, do however keep in mind that re-running the setup script does revert these changes, unless you're using overrides.
+To allow mods to be run, you may now edit `~/valheim_server/start_server.custom.sh`.
+As described in [Configuring the Valheim Server](#configuring-the-valheim-server), here you can adjust the server parameters and environment variables as you need.
 
 If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let us know in the [Discord server](#discord).
 
