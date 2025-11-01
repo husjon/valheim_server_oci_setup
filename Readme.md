@@ -232,6 +232,11 @@ The IP Address we copied in the previous step will be referenced here as `IP_ADD
 3. When done, Press `Ctrl+X`, then `y` and finally `Enter`.  
    **Note**: Mac users might need to use the `Cmd` button instead of `Ctrl`
 
+For further customization, you may want to change the `~/valheim_server/start_server.custom.sh` file.
+Here you may add / remove flags and environment variables used by the server, for example when adding mods.
+
+This file is only created if it does not exist, so re-running the setup script will leave it as it, however if there are issues you may remove the `~/valheim_server/start_server.custom.sh` file and re-run the setup script.
+
 # Starting the Valheim Server
 
 To start the server, run the command `valheim_server start`  
