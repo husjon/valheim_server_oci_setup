@@ -456,18 +456,8 @@ function install_systemd_service() {
 		EnvironmentFile=/home/${USER}/server_credentials
 
 		Environment=SteamAppId=892970
-		Environment=LD_LIBRARY_PATH="./linux64:\$LD_LIBRARY_PATH"
 
-		ExecStart=/home/${USER}/valheim_server/valheim_server.x86_64 \\
-		    -nographics \\
-		    -batchmode \\
-		    -port "\${PORT}" \\
-		    -public "\${PUBLIC}" \\
-		    -name "\${SERVER_NAME}" \\
-		    -world "\${WORLD_NAME}" \\
-		    -password "\${PASSWORD}" \\
-		    ${CROSSPLAY} \\
-		    -savedir "/home/${USER}/valheim_data"
+		ExecStart=$SERVER_SCRIPT_PATH
 
 		[Install]
 		WantedBy=default.target
