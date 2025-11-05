@@ -2,6 +2,7 @@
 
 - [Table of Content](#table-of-content)
 - [:warning: Disclaimer :warning:](#warning-disclaimer-warning)
+  - [Oracle and my stance](#oracle-and-my-stance)
   - [Self-upgrade not working (14th Jan 2025 - 9th Sept 2025)](#self-upgrade-not-working-14th-jan-2025---9th-sept-2025)
   - [Default x86_64 emulator](#default-x86_64-emulator)
   - [Ubuntu version](#ubuntu-version)
@@ -34,6 +35,14 @@
 - [TODOs](#todos)
 
 # :warning: Disclaimer :warning:
+
+## Oracle and my stance
+
+I've terminated my tenancy with Oracle and I do not intend on going back.
+The guide will stay as-is for now but I am considering expanding it further to make it work on different platforms and providers in the future.
+I know that server hosting usually cost a pretty penny and a cheap/free server like the ones provided by Oracle are extremely rare. I will still respect you if you want to continue using Oracle to play with your friends.
+
+A [full statement](https://discord.com/channels/242319703660298240/1434191715937554614/1435613328150888658) is available on my [Discord server](#discord).
 
 ## Self-upgrade not working (14th Jan 2025 - 9th Sept 2025)
 
