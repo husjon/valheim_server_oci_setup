@@ -318,7 +318,7 @@ the following steps can be used.
    _ Windows: `%userprofile%/AppData/LocalLow/IronGate/Valheim/Worlds`
    _ Linux: `$HOME/.config/unity3d/IronGate/Valheim/worlds`
 2. Stop the Valheim Server with `valheim_server stop`
-3. With an SFTP client (f.ex FileZilla), upload the `.db` and `.fwl` file to the folder: `/home/${USER}/valheim_data`
+3. With an SFTP client (f.ex FileZilla), upload the `.db` and `.fwl` file to the folder: `/home/${USER}/valheim_data/worlds_local`
 4. Edit the `~/server_credentials` and update the `WORLD_NAME` parameter to the name of your World files.  
    F.ex if you world file was `My_Valheim_World.db` and `My_Valheim_World.fwl`, set it to `WORLD_NAME="My_Valheim_World"`
 5. Start the Valheim Server with `valheim_server start`
