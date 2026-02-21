@@ -348,8 +348,8 @@ I might be delayed due to work / timezones etc, but hoping to get you going as q
 
 ## Discord
 
-I've decided to open up my discord server so if you need help or would like to suggest improvements or similar, please tag along.  
-https://discord.gg/ExnzM4E7pE
+I no longer deem Discord to be a safe space for anyone and I've disabled the invite link.  
+Instead you may join the space on [Matrix](#matrix).
 
 ## Matrix
 
