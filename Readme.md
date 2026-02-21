@@ -1,3 +1,6 @@
+test
+
+
 # Table of Content
 
 - [Table of Content](#table-of-content)
@@ -27,6 +30,7 @@
 - [Adding Pre-existing worlds](#adding-pre-existing-worlds)
 - [Troubleshooting](#troubleshooting)
   - [Discord](#discord)
+  - [Matrix](#matrix)
 - [Changing versions](#changing-versions)
   - [Switcing to the Previous Stable Version](#switcing-to-the-previous-stable-version)
   - [Switching to the Public Beta Branch](#switching-to-the-public-beta-branch)
@@ -346,6 +350,12 @@ I might be delayed due to work / timezones etc, but hoping to get you going as q
 
 I've decided to open up my discord server so if you need help or would like to suggest improvements or similar, please tag along.  
 https://discord.gg/ExnzM4E7pE
+
+## Matrix
+
+I've set up a space over on Matrix for support and feedback which you are welcome to join.  
+https://matrix.to/#/!mdUorjAxVZJCpANCCh:matrix.org?via=matrix.org
+
 
 # Changing versions
 
