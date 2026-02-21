@@ -61,7 +61,7 @@ The default x86_64 emulator up until now (21th Sept 2025) has been Box86 and Box
 This has been considered for a while as it does seem very stable and in the future should allow for using mods (see [Modding](#modding)).  
 It is possible to switch back to using Box by setting the `USE_BOX` environment variable.
 
-For further discussions, please do join my [Discord server](#discord).
+For further discussions, please do join my [Matrix space](#matrix).
 
 ## Ubuntu version
 
@@ -292,7 +292,7 @@ As the default emulation layer has been changed to FEX, modding should now be po
 To allow mods to be run, you may now edit `~/valheim_server/start_server.custom.sh`.
 As described in [Configuring the Valheim Server](#configuring-the-valheim-server), here you can adjust the server parameters and environment variables as you need.
 
-If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let us know in the [Discord server](#discord).
+If you're willing to try to install mods on your ARM instance and are able to so successfully, please do let us know in the [Matrix space](#matrix).
 
 As for a guide to install mods, here is one.  
 https://www.youtube.com/watch?v=h2t9cSFidt0
