@@ -5,6 +5,7 @@ test
 
 - [Table of Content](#table-of-content)
 - [:warning: Disclaimer :warning:](#warning-disclaimer-warning)
+  - [Discords Privacy invasion](#discords-privacy-invasion)
   - [Oracle and my stance](#oracle-and-my-stance)
   - [Self-upgrade not working (14th Jan 2025 - 9th Sept 2025)](#self-upgrade-not-working-14th-jan-2025---9th-sept-2025)
   - [Default x86_64 emulator](#default-x86_64-emulator)
@@ -39,6 +40,20 @@ test
 - [TODOs](#todos)
 
 # :warning: Disclaimer :warning:
+
+## Discords Privacy invasion
+
+With the recent news about Discords age verification system and their third party partner being Persona Identities, I see no reason for staying there.
+Persona has ties with Peter Thiel and Palantir which as you probably already know is being used most notably by both ICE and Israel.
+
+I've already stopped my Nitro subscription and intend on disabling my account later this week.  
+I've disabled the Discord invite link to this server.  
+The server will be put into read-only mode by the middle of the week, then finally delete it before disabling my account.
+
+I've set up a space on [Matrix](#matrix) which you are free to join.  
+
+Thank you all for your interest in this project and for staying around.  
+Take care and stay safe, hope to see you around. <3
 
 ## Oracle and my stance
 
