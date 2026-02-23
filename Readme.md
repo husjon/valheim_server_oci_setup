@@ -1,6 +1,5 @@
 test
 
-
 # Table of Content
 
 - [Table of Content](#table-of-content)
@@ -50,7 +49,7 @@ I've already stopped my Nitro subscription and intend on disabling my account la
 I've disabled the Discord invite link to this server.  
 The server will be put into read-only mode by the middle of the week, then finally delete it before disabling my account.
 
-I've set up a space on [Matrix](#matrix) which you are free to join.  
+I've set up a space on [Matrix](#matrix) which you are free to join.
 
 Thank you all for your interest in this project and for staying around.  
 Take care and stay safe, hope to see you around. <3
@@ -371,6 +370,22 @@ Instead you may join the space on [Matrix](#matrix).
 I've set up a space over on Matrix for support and feedback which you are welcome to join.  
 https://matrix.to/#/!mdUorjAxVZJCpANCCh:matrix.org?via=matrix.org
 
+### Joining Matrix
+
+In case you're new to Matrix, you may do the following to create an account and join the space.
+
+1. Click the invite link [Matrix](https://matrix.to/#/!mdUorjAxVZJCpANCCh:matrix.org?via=matrix.org)
+2. Click **Continue** under the **Element** app (first option)
+3. Click **Continue in your browser**
+4. On the **Welcome to Element** page, press **Create Account**
+   1. On the **Create account** page, press **Continue**
+   2. Type in your username and press **Continue with email address**, unless you'd like to use any of the other providers.
+   3. Fill in the form, providing your email address and set your password.
+      A 6-digit code will be sent to your provided email address, type this in on the next page.
+   4. You may choose to set a display name, press **Skip** if you want to just use your username
+   5. On the **Continue to Element?** page, press **Continue**
+   6. You should now be on the Home page of Element with a **Join** button for joining the **Setup Valheim OCI Server** space.
+      If you don't see the Join button, just press the invite link in step 1.
 
 # Changing versions
 
