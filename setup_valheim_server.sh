@@ -373,7 +373,7 @@ function install_valheim_server_helper() {
 		    update)
 		        stop_server
 
-		        /home/\${USER}/steamcmd/steamcmd.sh \\
+		        STEAM_PLATFORM=${STEAM_PLATFORM} /home/\${USER}/steamcmd/steamcmd.sh \\
 		            +@sSteamCmdForcePlatformType linux \\
 		            +force_install_dir "/home/\${USER}/valheim_server" \\
 		            +login anonymous \\
