@@ -20,6 +20,7 @@ set -e
 
 # Environment variables / Overridable options
 CROSSPLAY_SUPPORT=${CROSSPLAY_SUPPORT:-false} # Enables crossplay (Note: this is highly experimental at best)
+STEAM_PLATFORM=${STEAM_PLATFORM:-linux64}     # Allow overriding the binary the steamcmd should use
 
 SERVER_SCRIPT_PATH="/home/${USER}/valheim_server/start_server.custom.sh"
 
