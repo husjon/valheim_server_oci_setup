@@ -21,6 +21,7 @@ set -e
 # Environment variables / Overridable options
 CROSSPLAY_SUPPORT=${CROSSPLAY_SUPPORT:-false}    # Enables crossplay (Note: this is highly experimental at best)
 export STEAM_PLATFORM=${STEAM_PLATFORM:-linux64} # Allow overriding the binary the steamcmd should use
+export ROOTFS=~/.local/share/fex-emu/RootFS/${NAME}_${VERSION_ID/\./_}
 
 SERVER_SCRIPT_PATH="/home/${USER}/valheim_server/start_server.custom.sh"
 
@@ -204,7 +205,7 @@ function install_fex_emu() {
         fex-emu-binfmt32 \
         fex-emu-binfmt64
 
-    if [[ ! -d ~/.fex-emu/RootFS/${NAME}_${VERSION_ID/\./_} ]]; then
+    if [[ ! -d ${ROOTFS} ]]; then
         notify "Creating RootFS, this might take a while"
         FEXRootFSFetcher \
             --force-ui=tty \
